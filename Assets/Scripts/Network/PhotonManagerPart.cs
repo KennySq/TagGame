@@ -44,14 +44,31 @@ namespace TagGame.Photon
 
         public Quaternion rot;
         public Vector3 angularVelocity;
+
+        public int useSnap;
     }
 
+
+    [Serializable]
+    public class ChacterInitializePacket : Packet
+    {
+        public int index;
+    }
+
+
+    [Serializable]
+    public class PlayerStatusPacket : Packet
+    {
+        public int HP;
+    }
 
 
     public partial class PhotonManager : PhotonSingleton<PhotonManager>
     {
 
         public event Action<TrackedPosePacket> OnTrackedPoseMessageReceive;
+        public event Action<ChacterInitializePacket> OnChacterInitializeMessageReceive;
+        public event Action<PlayerStatusPacket> OnPlayerStatusMessageReceive;
 
         private const RpcTarget SendTarget = RpcTarget.Others;
 
@@ -111,6 +128,37 @@ namespace TagGame.Photon
         {
             var packet = DeserializeData<TrackedPosePacket>(data);
             OnTrackedPoseMessageReceive?.Invoke(packet);
+        }
+
+        public static void SendChacterInitializePacketData(in ChacterInitializePacket data)
+        {
+            if (!isValid)
+                return;
+
+            Instance.photonView.RPC("ReceiveChacterInitializePacketData", SendTarget, SerializeData(data));
+        }
+
+        [PunRPC]
+        public void ReceiveChacterInitializePacketData(string data)
+        {
+            var packet = DeserializeData<ChacterInitializePacket>(data);
+            OnChacterInitializeMessageReceive?.Invoke(packet);
+        }
+
+
+        public static void SendPlayerStatusPacketData(in PlayerStatusPacket data)
+        {
+            if (!isValid)
+                return;
+
+            Instance.photonView.RPC("ReceivePlayerStatusPacketData", SendTarget, SerializeData(data));
+        }
+
+        [PunRPC]
+        public void ReceivePlayerStatusPacketData(string data)
+        {
+            var packet = DeserializeData<PlayerStatusPacket>(data);
+            OnPlayerStatusMessageReceive?.Invoke(packet);
         }
 
     }
