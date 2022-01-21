@@ -208,7 +208,7 @@ namespace TagGame.Photon
             RoomOptions roomOptions = new RoomOptions
             {
                 PublishUserId = true,
-                MaxPlayers = 8
+                MaxPlayers = 2
             };
 
             PhotonNetwork.CreateRoom("Lobby" + Time.time, roomOptions);
@@ -296,9 +296,10 @@ namespace TagGame.Photon
             PhotonNetwork.JoinLobby();
         }
 
-        public bool isMasterClient()
+
+        public bool isMasterClient
         {
-            return PhotonNetwork.LocalPlayer.IsMasterClient;
+            get => PhotonNetwork.LocalPlayer.IsMasterClient;
         }
     }
 }
