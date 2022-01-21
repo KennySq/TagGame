@@ -11,6 +11,9 @@ public class TestConnect : MonoBehaviour
 
     private void OnDisable()
     {
-        TagGame.Photon.PhotonManager.Instance.StartDisconnect();
+        if (TagGame.Photon.PhotonManager.TryGetInstance(out var instance))
+        {
+            instance.StartDisconnect();
+        }
     }
 }
