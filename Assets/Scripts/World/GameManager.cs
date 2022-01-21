@@ -2,19 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Unity.Netcode;
 
+// 게임 매니저
+// 네트워크, 플레이어 매니징
 public class GameManager : MonoBehaviour
 {
-    public string IPAddress;
     public Button ConnectButton;
+    private Level mLevel;
 
-    private NetworkManager mNetworkManager;
+    [SerializeField]
+    private List<GameObject> mPlayers;
+
+    private GameObject mLocalPlayer;
 
     private void Awake()
     {
-        mNetworkManager = GetComponent<NetworkManager>();
-
+        mLevel = GetComponent<Level>();
 
     }
 
@@ -22,22 +25,8 @@ public class GameManager : MonoBehaviour
     {
     }
 
-
-
-    // Update is called once per frame
     void Update()
     {
-        
+
     }
-
-    public void Host()
-    {
-        bool bResult = mNetworkManager.StartHost();
-
-        if(bResult == false)
-        {
-            Debug.LogError("Failed to hosting session.");
-        }
-    }
-
 }
