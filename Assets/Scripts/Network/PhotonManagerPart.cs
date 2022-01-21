@@ -40,6 +40,7 @@ namespace TagGame.Photon
     {
         public Vector3 pos;
         public Vector3 velocity;
+        public Vector3 acceleration;
 
         public Quaternion rot;
         public Vector3 angularVelocity;
