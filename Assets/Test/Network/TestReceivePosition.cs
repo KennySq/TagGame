@@ -51,16 +51,15 @@ public class TestReceivePosition : MonoBehaviour
         if (!isReceived)
             return;
 
-        var rate = 1f;
         UpdateTime += dt;
         updateRate = (UpdateTime) / (TotalPacketSendInterval / PacketReceiveCount);
 
         //Update Position
-        var lerpPosition = Vector3.LerpUnclamped(TargetPosition, PredictionPosition, ExtrapolationFactor * rate);
-        var lerpRotation = Quaternion.SlerpUnclamped(TargetRotation, PredictionRotation, ExtrapolationFactor * rate);
+        var lerpPosition = Vector3.LerpUnclamped(TargetPosition, PredictionPosition, ExtrapolationFactor);
+        //var lerpRotation = Quaternion.SlerpUnclamped(TargetRotation, PredictionRotation, ExtrapolationFactor);
 
         transform.localPosition = Vector3.Lerp(transform.localPosition, lerpPosition, InterpolationFactor);
-        transform.localRotation = Quaternion.Slerp(transform.localRotation, lerpRotation, InterpolationFactor);
+        transform.localRotation = Quaternion.Slerp(transform.localRotation, PredictionRotation, InterpolationFactor);
     }
 
     public void UpdateTarget(in int timeStamp, in Vector3 nextPosition, in Quaternion nextRotation, in Vector3 velocity, in Vector3 acceleration)
