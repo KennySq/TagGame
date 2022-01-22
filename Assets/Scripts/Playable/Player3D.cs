@@ -152,8 +152,8 @@ public class Player3D : Actor
 
     private void Instance_OnTagReceive(TagGame.Photon.TagPacket obj)
     {
-        Rigidbody RemoteRigid = CurrentLevel.RemotePlayer.GetComponentInChildren<Rigidbody>();
-        RemoteRigid.AddExplosionForce(10.0f, obj.contactDirection, 1.0f);
+        Debug.Log("ReceiveTag");
+        Rigidbody3D.AddExplosionForce(10.0f, obj.contactDirection, 1.0f);
     }
 
     private void GroundState_OnDataChanged(bool isGrounded)
@@ -210,6 +210,7 @@ public class Player3D : Actor
                         contactDirection = direction
                     });
 
+                    Debug.Log("SendTag");
                     //Rigidbody RemoteRigid = CurrentLevel.RemotePlayer.GetComponentInChildren<Rigidbody>();
                     //RemoteRigid.AddExplosionForce(10.0f, direction, 1.0f);
                 }
