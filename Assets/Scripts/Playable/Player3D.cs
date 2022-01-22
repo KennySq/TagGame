@@ -10,26 +10,44 @@ public class Player3D : Actor
         get { return mCapsule3D; }
     }
 
+        
+    private int facingX = 1;
+    private int facingY = 1;
+
     // 기본 컨트롤
     protected override void Controller()
     {
         float yDelta = Input.GetAxis("Vertical");
         float xDelta = Input.GetAxis("Horizontal");
 
-        if(CurrentLevel.LevelStatus == Level.eLevelStatus.LEVEL_3D)
+        if (Input.GetKeyDown(KeyCode.Space) && mJumpCount < MaxJumpCount)
         {
-            Rigidbody3D.velocity += (new Vector3(xDelta * MoveSpeed, 0.0f, yDelta * MoveSpeed));
+            Rigidbody3D.velocity += new Vector3(0.0f, 0.0f, JumpPower);
+
+            mJumpCount++;
+        }
+
+        if (CurrentLevel.LevelStatus == Level.eLevelStatus.LEVEL_3D)
+        {
+            Vector3 xMove = new Vector3(xDelta * MoveSpeed, 0.0f, 0.0f);
+            Vector3 yMove = new Vector3(0.0f, 0.0f, yDelta * MoveSpeed);
+
+            Vector3 vel = xMove + yMove;
+
+            Rigidbody3D.velocity += vel;
         }
         else
         {
-            Rigidbody3D.velocity += new Vector3(xDelta * MoveSpeed, 0.0f, 0.0f);
+            Debug.Log(facingX);
+            Debug.Log(facingY);
 
-            if(Input.GetKeyDown(KeyCode.Space) && mJumpCount < MaxJumpCount)
+            Rigidbody3D.velocity += new Vector3(facingX * Mathf.Abs(xDelta) * MoveSpeed, 0.0f, 0.0f);
+            if (Rigidbody3D.velocity.x <= Mathf.Epsilon)
             {
-                Rigidbody3D.velocity += new Vector3(0.0f, 0.0f, JumpPower);
-
-                mJumpCount++;
+                return;
             }
+
+
         }
 
         return;

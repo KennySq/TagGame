@@ -72,6 +72,14 @@ public abstract class Actor : MonoBehaviour
     // 조작 순수 가상함수
     protected abstract void Controller();
 
+    protected void Attack()
+    {
+        //if(Input.GetKeyDown(KeyCode.))
+        //{
+
+        //}
+    }
+
     static readonly Quaternion Rotation2D = Quaternion.Euler(90.0f, 0.0f, 0.0f);
 
     // 2D, 3D 상태에 따른 모드 스위칭
