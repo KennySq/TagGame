@@ -20,6 +20,9 @@ public class Player3D : Actor
     Vector3 Gravity2D;
     Vector3 Gravity3D;
 
+    private int mLastFacing = 0;
+    private Vector3 mFacingDirection;
+
     // 기본 컨트롤
     protected override void Controller()
     {
@@ -29,9 +32,21 @@ public class Player3D : Actor
         if(CurrentLevel.LevelStatus == Level.eLevelStatus.LEVEL_3D)
         {
             Rigidbody3D.velocity += (new Vector3(xDelta * MoveSpeed, 0.0f, yDelta * MoveSpeed ));
+
+            if(Mathf.Abs(xDelta) >= Mathf.Epsilon)
+            {
+                mFacingDirection = new Vector3(Mathf.Sign(xDelta), 0, 0);
+
+            }
+            if (Mathf.Abs(yDelta) >= Mathf.Epsilon)
+            {
+                mFacingDirection = new Vector3(0, 0, Mathf.Sign(yDelta));
+            }
         }
         else
         {
+            mLastFacing = (int)Mathf.Sign(xDelta);
+
             Rigidbody3D.velocity += new Vector3(xDelta * MoveSpeed, 0.0f, 0.0f);
 
             if(Input.GetKeyDown(KeyCode.Space) && mJumpCount < MaxJumpCount)
@@ -41,6 +56,8 @@ public class Player3D : Actor
                 mJumpCount++;
             }
         }
+
+        
 
         Attack();
 
@@ -88,12 +105,22 @@ public class Player3D : Actor
         {
             animator.SetTrigger("attack");
 
-            Vector3 origin = transform.position;
-            Vector3 direction = transform.position;
+            Vector3 origin = ActorTransform.position;
+            Vector3 direction = mFacingDirection * 3.0f;
 
+            RaycastHit hitResult;
+            Ray r = new Ray(origin, direction);
+            Debug.DrawRay(origin, direction, Color.blue, 1.0f);
 
-
-
+            if (Physics.Raycast(r, out hitResult, 3.0f))
+            {
+                Debug.Log(CurrentLevel.RemotePlayer);
+                if (hitResult.collider.gameObject == CurrentLevel.RemotePlayer)
+                {
+                    Debug.Log("Remote Hit");
+                    Destroy(hitResult.collider.gameObject);
+                }
+            }
 
         }
     }

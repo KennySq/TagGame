@@ -108,6 +108,10 @@ public class Level : MonoBehaviour
         Actor remoteActor = mRemotePlayer.GetComponent<Actor>();
         remoteActor.SwitchMode(mLevelStatus);
 
+        if (Transition.TryGetTransition(2, out var transition) && LevelStatus == Level.eLevelStatus.LEVEL_2D)
+        {
+            transition.Run();
+        }
     }
 
     private void Awake()
