@@ -39,22 +39,7 @@ public class GameManager : MonoBehaviour
         Actor localActor = obj;
         localActor.CurrentLevel = mLevel;
         mLevel.LocalPlayer = mLocalPlayer;
+        mLevel.MainCamera = mLocalPlayer.GetComponentInChildren<Camera>();
     }
 
-    void Start()
-    {
-        // 임시 코드.
-        // 포톤 적용후엔 local-player로 초기화.
-        mLocalPlayer = GameObject.Find("Player3D");
-
-        Actor localActor = mLocalPlayer.GetComponent<Actor>();
-        localActor.CurrentLevel = mLevel;
-        mLevel.LocalPlayer = mLocalPlayer;
-    }
-
-
-    void Update()
-    {
-
-    }
 }

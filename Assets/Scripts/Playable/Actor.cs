@@ -8,6 +8,7 @@ using Utils;
 // 플레이가 가능한 캐릭터는 이 클래스로부터 상속받습니다.
 public abstract class Actor : MonoBehaviour
 {
+    [SerializeField]
     public static readonly NotifierClass<Actor> LocalPlayer = new NotifierClass<Actor>();
 
     public float MoveSpeed;
@@ -28,6 +29,7 @@ public abstract class Actor : MonoBehaviour
 
     public GameObject RigidGameObject;
 
+    [SerializeField]
     protected Camera mMainCamera;
     public Camera MainCamera
     {
@@ -54,7 +56,7 @@ public abstract class Actor : MonoBehaviour
     private TestReceivePosition mReceivePosition;
     public TestReceivePosition ReceivePosition { get => mReceivePosition; }
 
-    protected bool IsLocalPlayer { get; private set; }
+    protected bool IsLocalPlayer { get { return LocalPlayer.CurrentData.gameObject == gameObject; } }
 
     protected virtual void Awake()
     {

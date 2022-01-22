@@ -1384,7 +1384,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mLevelStatus: 0
-  SwitchTime: 120
+  SwitchTime: 5
   TimerText: {fileID: 23045324}
 --- !u!1 &1016957381
 GameObject:
