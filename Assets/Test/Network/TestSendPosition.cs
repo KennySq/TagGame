@@ -18,11 +18,10 @@ public class TestSendPosition : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    private Rigidbody rigid;
 
     //dummys;
-    private Vector3 CurrentPosition;
-    private Vector3 LastPosition;
-
     private Vector3 CurrentVelocity;
     private Vector3 LastVelocity;
 
@@ -32,27 +31,23 @@ public class TestSendPosition : MonoBehaviour
     private Quaternion CurrentRotation;
 
 
-    private void Update()
+    private void FixedUpdate()
     {
-        LastPosition = CurrentPosition;
-        CurrentPosition = transform.position;
-
         LastVelocity = CurrentVelocity;
-        CurrentVelocity = CurrentPosition - LastPosition;
+        CurrentVelocity = rigid.velocity;
 
         Acceleraction = CurrentVelocity - LastVelocity;
 
         LastRotation = CurrentRotation;
         CurrentRotation = transform.rotation;
-
     }
 
     private void UpdateInternal()
     {
         TagGame.Photon.PhotonManager.SendTrackedPoseData(new TagGame.Photon.TrackedPosePacket()
         {
-            pos = CurrentPosition,
-            velocity = CurrentVelocity,
+            pos = rigid.position,
+            velocity = rigid.velocity,
             acceleration = Acceleraction,
 
             rot = transform.rotation,
