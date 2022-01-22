@@ -9,8 +9,8 @@ public abstract class Actor : MonoBehaviour
     public float MoveSpeed;
     public float JumpPower;
 
-    [SerializeField]
-    protected bool mbAir;
+    protected int mJumpCount = 0;
+    public int MaxJumpCount = 2;
 
     public Level CurrentLevel;
 

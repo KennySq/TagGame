@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 // 현재 레벨을 관리하는 클래스
 // 카메라, 2D,3D 상태 관리
@@ -39,6 +40,16 @@ public class Level : MonoBehaviour
         set { mMainCamera = value; }
     }
 
+    private float mSwitchTimer = 0.0f;
+    public float SwitchTimer
+    {
+        get { return mSwitchTimer; }
+    }
+
+    public float SwitchTime = 60.0f;
+
+    public TextMeshProUGUI TimerText;
+    
     // pre-set 카메라 옵션
     CameraSetup CamSetup2D = new CameraSetup(new Vector3(0, 30.0f, 0.0f), Quaternion.Euler(90, 0, 0), 0.0f);
     CameraSetup CamSetup3D = new CameraSetup(new Vector3(0, 4.5f, -10.0f), Quaternion.Euler(45, 0, 0), 60.0f);
@@ -106,33 +117,53 @@ public class Level : MonoBehaviour
         mCurrentCameraOption = CamSetup2D;
 
         // Temporal Code
-        RemotePlayer = GameObject.Find("Billy");
+        RemotePlayer = GameObject.Find("Player2D");
         // -------------
     }
 
     private void Update()
     {
-        GameObject rigidObject = mLocalActor.RigidGameObject3D;
-        Vector3 targetPosition;
+        if(mSwitchTimer >= SwitchTime)
+        {
+            SwitchLevelStatus();
+            mSwitchTimer = 0;
+        }
 
+        mSwitchTimer += Time.deltaTime;
+
+        TimerText.text = (SwitchTime - mSwitchTimer).ToString("N2");
+
+        GameObject rigidObject = mLocalActor.RigidGameObject3D;
         Vector3 remotePosition = RemotePlayer.transform.position;
         Vector3 localPosition = rigidObject.transform.position;
-
-        Vector3 distanceVector = (localPosition + remotePosition) * 0.5f;
-
-        float length = Vector3.Distance(localPosition, remotePosition);
-
-        targetPosition = distanceVector + CamSetup3D.PositionOffset;
-        Debug.DrawLine(mMainCamera.transform.position, distanceVector, Color.red, 1.0f, false);
         Quaternion targetRotation = mCurrentCameraOption.RotationOffset;
+        Vector3 distanceVector = (localPosition + remotePosition) * 0.5f;
+        float distance = Vector3.Distance(localPosition, remotePosition);
 
         mMainCamera.transform.rotation = Quaternion.Slerp(mMainCamera.transform.rotation, targetRotation, 0.1f);
 
-        mMainCamera.transform.position = Vector3.Lerp(mMainCamera.transform.position, targetPosition, 0.1f);
-        // mMainCamera.transform.position = new Vector3(mMainCamera.transform.position.x, mMainCamera.transform.position.y, length);
-        mMainCamera.transform.position -= mMainCamera.transform.TransformDirection(mMainCamera.transform.forward * (length / mMainCamera.fieldOfView));
+        if (LevelStatus == eLevelStatus.LEVEL_3D)
+        {
+            Vector3 targetPosition;
 
-        mMainCamera.fieldOfView = Mathf.Lerp(mMainCamera.fieldOfView, mCurrentCameraOption.FOV, 0.1f);
+            targetPosition = distanceVector + CamSetup3D.PositionOffset;
+            Debug.DrawLine(mMainCamera.transform.position, distanceVector, Color.red, 1.0f, false);
+
+            mMainCamera.transform.position = Vector3.Lerp(mMainCamera.transform.position, targetPosition, 0.1f);
+            // mMainCamera.transform.position = new Vector3(mMainCamera.transform.position.x, mMainCamera.transform.position.y, length);
+            mMainCamera.transform.position -= mMainCamera.transform.TransformDirection(mMainCamera.transform.forward * distance);
+
+            mMainCamera.fieldOfView = Mathf.Lerp(mMainCamera.fieldOfView, mCurrentCameraOption.FOV, 0.1f);
+        }
+        else
+        {
+            Vector3 targetPosition = distanceVector + CamSetup2D.PositionOffset;
+
+            mMainCamera.transform.position = Vector3.Lerp(mMainCamera.transform.position, targetPosition, 0.1f);
+            mMainCamera.transform.position = new Vector3(mMainCamera.transform.position.x, 30.0f, mMainCamera.transform.position.z);
+            mMainCamera.orthographicSize = Mathf.Lerp(mMainCamera.orthographicSize, distance / 1.414f, 0.1f);
+        }
+
 
 
     }
