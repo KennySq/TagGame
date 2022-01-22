@@ -16,6 +16,12 @@ public class LocalPlayerData : Singleton<LocalPlayerData>
     public readonly Notifier<int> characterIndex = new Notifier<int>();
     public PlayerStatus status = new PlayerStatus();
 
+
+    public void Initialize()
+    {
+
+    }
+
     public void SendPlayerStatus()
     {
         var packet = new PlayerStatusPacket();

@@ -33,6 +33,8 @@ public class TitleStart : MonoBehaviour, IPointerClickHandler
     {
         wrapper = new CoroutineWrapper(this);
 
+        LocalPlayerData.Instance.Initialize();
+        RemotePlayerData.Instance.Initialize();
     }
 
 
