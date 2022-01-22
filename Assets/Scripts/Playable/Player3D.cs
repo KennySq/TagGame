@@ -118,9 +118,7 @@ public class Player3D : Actor
                 Debug.Log("collider : " + hitResult.collider.transform.parent);
                 if (hitResult.collider.transform.parent.gameObject == CurrentLevel.RemotePlayer)
                 {
-                    
                     Rigidbody RemoteRigid = CurrentLevel.RemotePlayer.GetComponentInChildren<Rigidbody>();
-
                     RemoteRigid.AddExplosionForce(10.0f, direction, 1.0f);
                 }
             }
@@ -134,6 +132,11 @@ public class Player3D : Actor
         {
             Debug.Log("Local");
             Controller();
+        }
+
+        if(mActorIndex == 1)
+        {
+            mMesh.transform.LookAt(MainCamera.transform);
         }
 
         Debug.Log(CurrentLevel);
