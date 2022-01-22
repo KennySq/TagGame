@@ -9,6 +9,7 @@ public class TestReceivePosition : MonoBehaviour
     [SerializeField]
     private Rigidbody rigid;
 
+
     private Player3D player;
 
     private Vector3 TargetPosition;
@@ -45,6 +46,12 @@ public class TestReceivePosition : MonoBehaviour
     private void PhotonManager_OnInitialized(TagGame.Photon.PhotonManager photonManager)
     {
         photonManager.OnTrackedPoseMessageReceive += PhotonManager_OnTrackedPoseMessageReceive;
+        photonManager.OnAnimationMessageReceive += PhotonManager_OnAnimationMessageReceive;
+    }
+
+    private void PhotonManager_OnAnimationMessageReceive(TagGame.Photon.AnimationPacket obj)
+    {
+        player.InvokeAnimationTrigger(obj.index);
     }
 
     private void PhotonManager_OnTrackedPoseMessageReceive(TagGame.Photon.TrackedPosePacket packet)
@@ -70,10 +77,6 @@ public class TestReceivePosition : MonoBehaviour
         //var lerpRotation = Quaternion.SlerpUnclamped(TargetRotation, PredictionRotation, ExtrapolationFactor);
 
         var nextPosition = Vector3.Lerp(rigid.position, lerpPosition, InterpolationFactor);
-        //if (player.CheckPenetration(nextPosition - rigid.position, out var decomp))
-        //{
-        //    nextPosition -= decomp;
-        //}
 
         rigid.position = nextPosition;
         rigid.rotation = Quaternion.Slerp(rigid.rotation, PredictionRotation, InterpolationFactor);
@@ -125,6 +128,7 @@ public class TestReceivePosition : MonoBehaviour
     {
         if (TagGame.Photon.PhotonManager.TryGetInstance(out var instance))
         {
+            instance.OnAnimationMessageReceive -= PhotonManager_OnAnimationMessageReceive;
             instance.OnTrackedPoseMessageReceive -= PhotonManager_OnTrackedPoseMessageReceive;
         }
         TagGame.Photon.PhotonManager.OnInitialized -= PhotonManager_OnInitialized;

@@ -110,6 +110,21 @@ public class Player3D : Actor
     }
 
 
+    public void InvokeAnimationTrigger(int index)
+    {
+        switch (index)
+        {
+            case 1:
+                animator.SetTrigger("walk_start");
+                break;
+            case 2:
+                animator.SetTrigger("walk_end");
+                break;
+            case 3:
+                animator.SetTrigger("attack");
+                break;
+        }
+    }
 
     public bool CheckPenetration(in Vector3 offset, out Vector3 decomposition)
     {
@@ -146,6 +161,18 @@ public class Player3D : Actor
 
         Gravity2D = new Vector3(0.0f, 0.0f, GravityScalar);
         Gravity3D = new Vector3(0.0f, GravityScalar, 0.0f);
+
+        TagGame.Photon.PhotonManager.Instance.OnTagReceive += Instance_OnTagReceive;
+    }
+
+    private void Instance_OnTagReceive(TagGame.Photon.TagPacket obj)
+    {
+        if (obj.actorIndex == mActorIndex) // 공격자 데이터가 공격자 캐릭터로 갔다면
+            return;
+
+        Debug.Log("ReceiveTag");
+        //Rigidbody3D.AddExplosionForce(10.0f, obj.contactDirection, 1.0f);
+        Rigidbody3D.transform.name = "Hit by " + obj.actorIndex;
     }
 
     private void GroundState_OnDataChanged(bool isGrounded)
@@ -168,10 +195,12 @@ public class Player3D : Actor
         if (isMove)
         {
             animator.SetTrigger("walk_start");
+            TagGame.Photon.PhotonManager.SendAnimationData(new TagGame.Photon.AnimationPacket() { index = 1 });
         }
         else
         {
             animator.SetTrigger("walk_end");
+            TagGame.Photon.PhotonManager.SendAnimationData(new TagGame.Photon.AnimationPacket() { index = 2 });
         }
     }
 
@@ -185,6 +214,7 @@ public class Player3D : Actor
             }
 
             animator.SetTrigger("attack");
+            TagGame.Photon.PhotonManager.SendAnimationData(new TagGame.Photon.AnimationPacket() { index = 3 });
 
             Vector3 origin = ActorTransform.position;
             Vector3 direction = mFacingDirection * 3.0f;
@@ -198,10 +228,18 @@ public class Player3D : Actor
                 Debug.Log("Attack Hit.");
                 if (hitResult.collider.transform.parent.gameObject == CurrentLevel.RemotePlayer)
                 {
-                    //.
+                    //.call Instance_OnTagReceive
+                    TagGame.Photon.PhotonManager.SendTagPacketData(new TagGame.Photon.TagPacket()
+                    {
+                        actorIndex = this.mActorIndex,
+                        contactPosition = hitResult.point,
+                        //contactDirection = hitResult.collider.transform.position - Rigidbody3D.position
+                        contactDirection = direction
+                    });
 
-                    Rigidbody RemoteRigid = CurrentLevel.RemotePlayer.GetComponentInChildren<Rigidbody>();
-                    RemoteRigid.AddExplosionForce(10.0f, direction, 1.0f);
+                    Debug.Log("SendTag");
+                    //Rigidbody RemoteRigid = CurrentLevel.RemotePlayer.GetComponentInChildren<Rigidbody>();
+                    //RemoteRigid.AddExplosionForce(10.0f, direction, 1.0f);
                 }
             }
 
@@ -271,5 +309,14 @@ public class Player3D : Actor
         }
 
         return false;
+    }
+
+    private void OnDestroy()
+    {
+        if (TagGame.Photon.PhotonManager.TryGetInstance(out var instance))
+        {
+            instance.OnTagReceive -= Instance_OnTagReceive;
+        }
+
     }
 }

@@ -48,6 +48,12 @@ namespace TagGame.Photon
         public int useSnap;
     }
 
+    [Serializable]
+    public class AnimationPacket : Packet
+    {
+        public int index; // walkStart : 1, walkEnd : 2, attack : 3
+    }
+
 
     [Serializable]
     public class ChacterInitializePacket : Packet
@@ -66,6 +72,7 @@ namespace TagGame.Photon
     [Serializable]
     public class TagPacket : Packet
     {
+        public int actorIndex;
         public Vector3 contactPosition;
         public Vector3 contactDirection;
     }
@@ -76,6 +83,7 @@ namespace TagGame.Photon
     {
 
         public event Action<TrackedPosePacket> OnTrackedPoseMessageReceive;
+        public event Action<AnimationPacket> OnAnimationMessageReceive;
         public event Action<ChacterInitializePacket> OnChacterInitializeMessageReceive;
         public event Action<PlayerStatusPacket> OnPlayerStatusMessageReceive;
         public event Action<TagPacket> OnTagReceive;
@@ -139,6 +147,22 @@ namespace TagGame.Photon
             var packet = DeserializeData<TrackedPosePacket>(data);
             OnTrackedPoseMessageReceive?.Invoke(packet);
         }
+
+        public static void SendAnimationData(in AnimationPacket data)
+        {
+            if (!isValid)
+                return;
+
+            Instance.photonView.RPC("ReceiveAnimationData", SendTarget, SerializeData(data));
+        }
+
+        [PunRPC]
+        public void ReceiveAnimationData(string data)
+        {
+            var packet = DeserializeData<AnimationPacket>(data);
+            OnAnimationMessageReceive?.Invoke(packet);
+        }
+
 
         public static void SendChacterInitializePacketData(in ChacterInitializePacket data)
         {
