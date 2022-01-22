@@ -6,6 +6,28 @@ using UnityEngine;
 
 public class TestSendPosition : MonoBehaviour
 {
+    [SerializeField]
+    private Rigidbody rigid;
+    private Actor Owner;
+
+    //dummys;
+    private Vector3 CurrentVelocity;
+    private Vector3 LastVelocity;
+
+    private Vector3 Acceleraction;
+
+    private Quaternion LastRotation;
+    private Quaternion CurrentRotation;
+
+    public void Initialize(in Actor actor)
+    {
+        this.enabled = true;
+
+        Owner = actor;
+
+        Owner.OnTeleport += Owner_OnTeleport;
+    }
+
     private IEnumerator Start()
     {
         var waitForSendRate = new WaitForSecondsRealtime(1f / PhotonNetwork.SendRate);
@@ -18,44 +40,32 @@ public class TestSendPosition : MonoBehaviour
         }
     }
 
-
-    //dummys;
-    private Vector3 CurrentPosition;
-    private Vector3 LastPosition;
-
-    private Vector3 CurrentVelocity;
-    private Vector3 LastVelocity;
-
-    private Vector3 Acceleraction;
-
-    private Quaternion LastRotation;
-    private Quaternion CurrentRotation;
-
-
-    private void Update()
+    private void Owner_OnTeleport()
     {
-        LastPosition = CurrentPosition;
-        CurrentPosition = transform.position;
+        UpdateInternal(true);
+    }
 
+    private void FixedUpdate()
+    {
         LastVelocity = CurrentVelocity;
-        CurrentVelocity = CurrentPosition - LastPosition;
+        CurrentVelocity = rigid.velocity;
 
         Acceleraction = CurrentVelocity - LastVelocity;
 
         LastRotation = CurrentRotation;
         CurrentRotation = transform.rotation;
-
     }
 
-    private void UpdateInternal()
+    private void UpdateInternal(bool isSnap = false)
     {
         TagGame.Photon.PhotonManager.SendTrackedPoseData(new TagGame.Photon.TrackedPosePacket()
         {
-            pos = CurrentPosition,
-            velocity = CurrentVelocity,
+            pos = rigid.position,
+            velocity = rigid.velocity,
             acceleration = Acceleraction,
 
             rot = transform.rotation,
+            useSnap = isSnap ? 1 : 0
         });
     }
 }

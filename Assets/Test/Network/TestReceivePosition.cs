@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class TestReceivePosition : MonoBehaviour
 {
+
+    [SerializeField]
+    private Rigidbody rigid;
+
     private Vector3 TargetPosition;
     private Vector3 PredictionPosition;
 
@@ -38,7 +42,7 @@ public class TestReceivePosition : MonoBehaviour
 
     private void PhotonManager_OnTrackedPoseMessageReceive(TagGame.Photon.TrackedPosePacket packet)
     {
-        UpdateTarget(packet.time_stamp, packet.pos, packet.rot, packet.velocity, packet.acceleration);
+        UpdateTarget(packet.time_stamp, packet.pos, packet.rot, packet.velocity, packet.acceleration, packet.useSnap == 1);
     }
 
     private void Update()
@@ -58,17 +62,17 @@ public class TestReceivePosition : MonoBehaviour
         var lerpPosition = Vector3.LerpUnclamped(TargetPosition, PredictionPosition, ExtrapolationFactor);
         //var lerpRotation = Quaternion.SlerpUnclamped(TargetRotation, PredictionRotation, ExtrapolationFactor);
 
-        transform.localPosition = Vector3.Lerp(transform.localPosition, lerpPosition, InterpolationFactor);
-        transform.localRotation = Quaternion.Slerp(transform.localRotation, PredictionRotation, InterpolationFactor);
+        rigid.position= Vector3.Lerp(rigid.position, lerpPosition, InterpolationFactor);
+        rigid.rotation= Quaternion.Slerp(rigid.rotation, PredictionRotation, InterpolationFactor);
     }
 
-    public void UpdateTarget(in int timeStamp, in Vector3 nextPosition, in Quaternion nextRotation, in Vector3 velocity, in Vector3 acceleration)
+    public void UpdateTarget(in int timeStamp, in Vector3 nextPosition, in Quaternion nextRotation, in Vector3 velocity, in Vector3 acceleration, in bool useSnap)
     {
         //when first received
-        if (!isReceived)
+        if (!isReceived || useSnap)
         {
-            transform.localPosition = TargetPosition = nextPosition;
-            transform.localRotation = TargetRotation = nextRotation;
+            rigid.position = TargetPosition = nextPosition;
+            rigid.rotation = TargetRotation = nextRotation;
 
             isReceived = true;
             LastTimeStamp = timeStamp;

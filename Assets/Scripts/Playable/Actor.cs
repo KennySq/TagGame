@@ -11,6 +11,8 @@ public abstract class Actor : MonoBehaviour
     [SerializeField]
     public static readonly NotifierClass<Actor> LocalPlayer = new NotifierClass<Actor>();
 
+    public event Action OnTeleport = null;
+
     public float MoveSpeed;
     public float JumpPower;
 
@@ -58,14 +60,12 @@ public abstract class Actor : MonoBehaviour
         //LocalPlayerIndex is thisCharacter
         if (mActorIndex == LocalPlayerData.Instance.characterIndex.CurrentData)
         {
-            SendPosition.enabled = true;
+            SendPosition.Initialize(this);
             LocalPlayer.CurrentData = this;
         }
         else // otherWise
         {
             ReceivePosition.enabled = true;
-
-            
         }
     }
 

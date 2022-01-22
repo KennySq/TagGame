@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utils;
 
 public class Player3D : Actor
 {
+    private readonly Notifier<bool> inputMovement = new Notifier<bool>();
+
     private CapsuleCollider mCapsule3D;
     public CapsuleCollider Capsule3D
     {
         get { return mCapsule3D; }
     }
 
-        
-    private int facingX = 1;
-    private int facingY = 1;
+    [SerializeField]
+    private Animator animator;
 
     // 기본 컨트롤
     protected override void Controller()
@@ -20,35 +22,23 @@ public class Player3D : Actor
         float yDelta = Input.GetAxis("Vertical");
         float xDelta = Input.GetAxis("Horizontal");
 
-        if (Input.GetKeyDown(KeyCode.Space) && mJumpCount < MaxJumpCount)
+        if(CurrentLevel.LevelStatus == Level.eLevelStatus.LEVEL_3D)
         {
-            Rigidbody3D.velocity += new Vector3(0.0f, 0.0f, JumpPower);
-
-            mJumpCount++;
-        }
-
-        if (CurrentLevel.LevelStatus == Level.eLevelStatus.LEVEL_3D)
-        {
-            Vector3 xMove = new Vector3(xDelta * MoveSpeed, 0.0f, 0.0f);
-            Vector3 yMove = new Vector3(0.0f, 0.0f, yDelta * MoveSpeed);
-
-            Vector3 vel = xMove + yMove;
-
-            Rigidbody3D.velocity += vel;
+            Rigidbody3D.velocity += (new Vector3(xDelta * MoveSpeed, 0.0f, yDelta * MoveSpeed));
         }
         else
         {
-            Debug.Log(facingX);
-            Debug.Log(facingY);
+            Rigidbody3D.velocity += new Vector3(xDelta * MoveSpeed, 0.0f, 0.0f);
 
-            Rigidbody3D.velocity += new Vector3(facingX * Mathf.Abs(xDelta) * MoveSpeed, 0.0f, 0.0f);
-            if (Rigidbody3D.velocity.x <= Mathf.Epsilon)
+            if(Input.GetKeyDown(KeyCode.Space) && mJumpCount < MaxJumpCount)
             {
-                return;
+                Rigidbody3D.velocity += new Vector3(0.0f, 0.0f, JumpPower);
+
+                mJumpCount++;
             }
-
-
         }
+
+        inputMovement.CurrentData = new Vector2(xDelta, yDelta).magnitude > 0.2f;
 
         return;
     }
@@ -65,11 +55,22 @@ public class Player3D : Actor
         mMesh = mRigidbody3D.transform.Find("Mesh").gameObject;
 
         ActorTransform = mRigidbody3D.transform;
+        inputMovement.OnDataChanged += Movement_OnDataChanged;
     }
 
-   void Start()
+    private void Movement_OnDataChanged(bool isMove)
     {
-        
+        //공격시 아래의 애니메이션 코드를 실행해 주세요
+        //animator.SetTrigger("attack");
+
+        if (isMove)
+        {
+            animator.SetTrigger("walk_start");
+        }
+        else
+        {
+            animator.SetTrigger("walk_end");
+        }
     }
 
     void Update()
