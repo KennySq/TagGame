@@ -60,6 +60,7 @@ public class Level : MonoBehaviour
 
     private CameraSetup mCurrentCameraOption;
 
+    [SerializeField]
     private GameObject mLocalPlayer;
     public GameObject LocalPlayer
     {

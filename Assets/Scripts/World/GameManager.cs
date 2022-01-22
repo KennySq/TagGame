@@ -21,8 +21,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        mLevel = GetComponent<Level>();
-        if(Actor.LocalPlayer.CurrentData == null)
+        if (Actor.LocalPlayer.CurrentData == null)
         {
             Actor.LocalPlayer.OnDataChangedOnce += OnLocalPlayerInitlaized;
         }
@@ -37,7 +36,6 @@ public class GameManager : MonoBehaviour
         mLocalPlayer = obj.gameObject;
         Actor localActor = obj;
 
-        localActor.CurrentLevel = mLevel;
         mLevel.LocalPlayer = mLocalPlayer;
         mLevel.MainCamera = localActor.MainCamera;
         localActor.MainCamera.gameObject.SetActive(true);
