@@ -16,6 +16,10 @@ public class Player3D : Actor
     [SerializeField]
     private Animator animator;
 
+    public const float GravityScalar = -2.45f;
+    Vector3 Gravity2D = new Vector3(0.0f, 0.0f, GravityScalar);
+    Vector3 Gravity3D = new Vector3(0.0f, GravityScalar, 0.0f);
+
     // 기본 컨트롤
     protected override void Controller()
     {
@@ -24,7 +28,7 @@ public class Player3D : Actor
 
         if(CurrentLevel.LevelStatus == Level.eLevelStatus.LEVEL_3D)
         {
-            Rigidbody3D.velocity += (new Vector3(xDelta * MoveSpeed, 0.0f, yDelta * MoveSpeed));
+            Rigidbody3D.velocity += (new Vector3(xDelta * MoveSpeed, 0.0f, yDelta * MoveSpeed ));
         }
         else
         {
@@ -37,6 +41,8 @@ public class Player3D : Actor
                 mJumpCount++;
             }
         }
+
+        Attack();
 
         inputMovement.CurrentData = new Vector2(xDelta, yDelta).magnitude > 0.2f;
 
@@ -73,6 +79,19 @@ public class Player3D : Actor
         }
     }
 
+    private void Attack()
+    {
+        if(Input.GetKeyDown(KeyCode.Z))
+        {
+            animator.SetTrigger("attack");
+
+            Vector3 origin = transform.position;
+            Vector3 direction = transform.position;
+
+
+        }
+    }
+
     void Update()
     {
         if(IsLocalPlayer == true)
@@ -99,7 +118,16 @@ public class Player3D : Actor
                     mJumpCount = 0;
                 }
             }
+
+            Rigidbody3D.velocity += Gravity2D;
         }
+        else
+        {
+            Rigidbody3D.velocity += Gravity3D;
+
+        }
+
+
 
 
 

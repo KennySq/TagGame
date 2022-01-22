@@ -54,9 +54,7 @@ public class Level : MonoBehaviour
     CameraSetup CamSetup2D = new CameraSetup(new Vector3(0, 30.0f, 0.0f), Quaternion.Euler(90, 0, 0), 0.0f);
     CameraSetup CamSetup3D = new CameraSetup(new Vector3(0, 4.5f, -10.0f), Quaternion.Euler(45, 0, 0), 60.0f);
 
-    public const float GravityScalar = -64.0f;
-    Vector3 Gravity2D = new Vector3(0.0f, 0.0f, GravityScalar * 2);
-    Vector3 Gravity3D = new Vector3(0.0f, GravityScalar, 0.0f);
+
 
     private CameraSetup mCurrentCameraOption;
 
@@ -94,16 +92,12 @@ public class Level : MonoBehaviour
         if (mLevelStatus == eLevelStatus.LEVEL_2D)
         {
             mLevelStatus = eLevelStatus.LEVEL_3D;
-            Physics.gravity = Gravity3D;
-
             mCurrentCameraOption = CamSetup3D;
             MainCamera.orthographic = false;
         }
         else
         {
             mLevelStatus = eLevelStatus.LEVEL_2D;
-            Physics.gravity = Gravity2D;
-
             mCurrentCameraOption = CamSetup2D;
             MainCamera.orthographic = true;
         }
