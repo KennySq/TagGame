@@ -114,11 +114,14 @@ public class Player3D : Actor
 
             if (Physics.Raycast(r, out hitResult, 3.0f))
             {
-                Debug.Log(CurrentLevel.RemotePlayer);
-                if (hitResult.collider.gameObject == CurrentLevel.RemotePlayer)
+                Debug.Log("remote player : " + CurrentLevel.RemotePlayer);
+                Debug.Log("collider : " + hitResult.collider.transform.parent);
+                if (hitResult.collider.transform.parent.gameObject == CurrentLevel.RemotePlayer)
                 {
-                    Debug.Log("Remote Hit");
-                    Destroy(hitResult.collider.gameObject);
+                    
+                    Rigidbody RemoteRigid = CurrentLevel.RemotePlayer.GetComponentInChildren<Rigidbody>();
+
+                    RemoteRigid.AddExplosionForce(10.0f, direction, 1.0f);
                 }
             }
 

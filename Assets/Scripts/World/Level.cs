@@ -118,9 +118,6 @@ public class Level : MonoBehaviour
     {
         mCurrentCameraOption = CamSetup2D;
 
-        // Temporal Code
-        RemotePlayer = GameObject.Find("Player2D");
-        // -------------
     }
 
     private void Update()
