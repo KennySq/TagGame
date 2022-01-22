@@ -1,11 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utils;
 
 // Actor 추상 클래스
 // 플레이가 가능한 캐릭터는 이 클래스로부터 상속받습니다.
 public abstract class Actor : MonoBehaviour
 {
+    public static readonly NotifierClass<Actor> LocalPlayer = new NotifierClass<Actor>();
+
     public float MoveSpeed;
     public float JumpPower;
 
@@ -58,6 +62,7 @@ public abstract class Actor : MonoBehaviour
         if (mActorIndex == LocalPlayerData.Instance.characterIndex.CurrentData)
         {
             SendPosition.enabled = true;
+            LocalPlayer.CurrentData = this;
         }
         else // otherWise
         {
