@@ -88,6 +88,8 @@ public class Player3D : Actor
 
         Attack();
 
+        LookAt(new Vector2(xDelta, yDelta));
+
         inputMovement.CurrentData = new Vector2(xDelta, yDelta).magnitude > 0.2f;
 
         return;
@@ -192,12 +194,26 @@ public class Player3D : Actor
                 Debug.Log("collider : " + hitResult.collider.transform.parent);
                 if (hitResult.collider.transform.parent.gameObject == CurrentLevel.RemotePlayer)
                 {
+                    //.
+
                     Rigidbody RemoteRigid = CurrentLevel.RemotePlayer.GetComponentInChildren<Rigidbody>();
                     RemoteRigid.AddExplosionForce(10.0f, direction, 1.0f);
                 }
             }
 
         }
+    }
+
+    private void LookAt(in Vector2 input)
+    {
+        if (input.magnitude < 0.2)
+            return;
+
+        if (CurrentLevel.LevelStatus == Level.eLevelStatus.LEVEL_2D) // not working?
+            input.Set(input.x, 0);
+
+        var targetRotation = Quaternion.Slerp(Rigidbody3D.rotation, Quaternion.LookRotation(input.ToVector3FromXZ()), 0.25f);
+        Rigidbody3D.MoveRotation(targetRotation);
     }
 
     void Update()
