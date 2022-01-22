@@ -66,6 +66,7 @@ namespace TagGame.Photon
     [Serializable]
     public class TagPacket : Packet
     {
+        public int actorIndex;
         public Vector3 contactPosition;
         public Vector3 contactDirection;
     }

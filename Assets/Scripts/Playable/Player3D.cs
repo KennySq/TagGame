@@ -152,8 +152,12 @@ public class Player3D : Actor
 
     private void Instance_OnTagReceive(TagGame.Photon.TagPacket obj)
     {
+        if (obj.actorIndex == mActorIndex) // 공격자 데이터가 공격자 캐릭터로 갔다면
+            return;
+
         Debug.Log("ReceiveTag");
-        Rigidbody3D.AddExplosionForce(10.0f, obj.contactDirection, 1.0f);
+        //Rigidbody3D.AddExplosionForce(10.0f, obj.contactDirection, 1.0f);
+        Rigidbody3D.transform.name = "Hit by " + obj.actorIndex;
     }
 
     private void GroundState_OnDataChanged(bool isGrounded)
@@ -205,6 +209,7 @@ public class Player3D : Actor
                     //.call Instance_OnTagReceive
                     TagGame.Photon.PhotonManager.SendTagPacketData(new TagGame.Photon.TagPacket()
                     {
+                        actorIndex = this.mActorIndex,
                         contactPosition = hitResult.point,
                         //contactDirection = hitResult.collider.transform.position - Rigidbody3D.position
                         contactDirection = direction
