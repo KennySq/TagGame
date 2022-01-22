@@ -208,7 +208,7 @@ public class Player3D : Actor
                         contactPosition = hitResult.point,
                         //contactDirection = hitResult.collider.transform.position - Rigidbody3D.position
                         contactDirection = direction
-                    }); 
+                    });
 
                     //Rigidbody RemoteRigid = CurrentLevel.RemotePlayer.GetComponentInChildren<Rigidbody>();
                     //RemoteRigid.AddExplosionForce(10.0f, direction, 1.0f);
@@ -281,5 +281,14 @@ public class Player3D : Actor
         }
 
         return false;
+    }
+
+    private void OnDestroy()
+    {
+        if (TagGame.Photon.PhotonManager.TryGetInstance(out var instance))
+        {
+            instance.OnTagReceive -= Instance_OnTagReceive;
+        }
+
     }
 }
