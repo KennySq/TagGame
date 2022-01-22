@@ -31,7 +31,7 @@ public class Player3D : Actor
 
         if(CurrentLevel.LevelStatus == Level.eLevelStatus.LEVEL_3D)
         {
-            Rigidbody3D.velocity += (new Vector3(xDelta * MoveSpeed, 0.0f, yDelta * MoveSpeed ));
+            Rigidbody3D.velocity += (new Vector3(xDelta * MoveSpeed * Time.deltaTime, 0.0f, yDelta * MoveSpeed * Time.deltaTime));
 
             if(Mathf.Abs(xDelta) >= Mathf.Epsilon)
             {
@@ -47,11 +47,11 @@ public class Player3D : Actor
         {
             mLastFacing = (int)Mathf.Sign(xDelta);
 
-            Rigidbody3D.velocity += new Vector3(xDelta * MoveSpeed, 0.0f, 0.0f);
+            Rigidbody3D.velocity += new Vector3(xDelta * MoveSpeed * Time.deltaTime, 0.0f, 0.0f);
 
             if(Input.GetKeyDown(KeyCode.Space) && mJumpCount < MaxJumpCount)
             {
-                Rigidbody3D.velocity += new Vector3(0.0f, 0.0f, JumpPower);
+                Rigidbody3D.velocity += new Vector3(0.0f, 0.0f, JumpPower * Time.deltaTime);
 
                 mJumpCount++;
             }
@@ -165,10 +165,6 @@ public class Player3D : Actor
             Rigidbody3D.velocity += Gravity3D * Time.deltaTime;
 
         }
-
-
-
-
 
     }
 }
