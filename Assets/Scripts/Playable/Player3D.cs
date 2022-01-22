@@ -146,6 +146,14 @@ public class Player3D : Actor
 
         Gravity2D = new Vector3(0.0f, 0.0f, GravityScalar);
         Gravity3D = new Vector3(0.0f, GravityScalar, 0.0f);
+
+        TagGame.Photon.PhotonManager.Instance.OnTagReceive += Instance_OnTagReceive;
+    }
+
+    private void Instance_OnTagReceive(TagGame.Photon.TagPacket obj)
+    {
+        Rigidbody RemoteRigid = CurrentLevel.RemotePlayer.GetComponentInChildren<Rigidbody>();
+        RemoteRigid.AddExplosionForce(10.0f, obj.contactDirection, 1.0f);
     }
 
     private void GroundState_OnDataChanged(bool isGrounded)
@@ -194,10 +202,16 @@ public class Player3D : Actor
                 Debug.Log("collider : " + hitResult.collider.transform.parent);
                 if (hitResult.collider.transform.parent.gameObject == CurrentLevel.RemotePlayer)
                 {
-                    //.
+                    //.call Instance_OnTagReceive
+                    TagGame.Photon.PhotonManager.SendTagPacketData(new TagGame.Photon.TagPacket()
+                    {
+                        contactPosition = hitResult.point,
+                        //contactDirection = hitResult.collider.transform.position - Rigidbody3D.position
+                        contactDirection = direction
+                    }); 
 
-                    Rigidbody RemoteRigid = CurrentLevel.RemotePlayer.GetComponentInChildren<Rigidbody>();
-                    RemoteRigid.AddExplosionForce(10.0f, direction, 1.0f);
+                    //Rigidbody RemoteRigid = CurrentLevel.RemotePlayer.GetComponentInChildren<Rigidbody>();
+                    //RemoteRigid.AddExplosionForce(10.0f, direction, 1.0f);
                 }
             }
 

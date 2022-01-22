@@ -70,10 +70,6 @@ public class TestReceivePosition : MonoBehaviour
         //var lerpRotation = Quaternion.SlerpUnclamped(TargetRotation, PredictionRotation, ExtrapolationFactor);
 
         var nextPosition = Vector3.Lerp(rigid.position, lerpPosition, InterpolationFactor);
-        //if (player.CheckPenetration(nextPosition - rigid.position, out var decomp))
-        //{
-        //    nextPosition -= decomp;
-        //}
 
         rigid.position = nextPosition;
         rigid.rotation = Quaternion.Slerp(rigid.rotation, PredictionRotation, InterpolationFactor);
