@@ -1891,6 +1891,7 @@ MonoBehaviour:
   SwitchTime: 5
   TimerText: {fileID: 23045324}
   mLocalPlayer: {fileID: 0}
+  TagPlayer: {fileID: 0}
 --- !u!1 &1016957381
 GameObject:
   m_ObjectHideFlags: 0
@@ -2253,6 +2254,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1023005931}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1093396249 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7200470266811433986, guid: 8f0e51ac2a2bad642a6527c6ad93c033,
+    type: 3}
+  m_PrefabInstance: {fileID: 1684688618}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1122919389
 GameObject:
   m_ObjectHideFlags: 0
@@ -6545,6 +6552,29 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1684688618}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1684688620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1093396249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: -1
+  OverrideMaxDistance: -1
 --- !u!1 &1813218582
 GameObject:
   m_ObjectHideFlags: 0

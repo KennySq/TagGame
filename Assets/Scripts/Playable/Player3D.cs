@@ -40,11 +40,29 @@ public class Player3D : Actor
     private Vector3 mFacingDirection;
     private CoroutineWrapper wrapper;
 
+    Dictionary<string, FMOD.Studio.EventInstance> mFmodEventInstances = new Dictionary<string, FMOD.Studio.EventInstance>();
+    List<string> mFmodEvents = new List<string>();
+
+
     // 기본 컨트롤
     protected override void Controller()
     {
         float yDelta = Input.GetAxis("Vertical");
         float xDelta = Input.GetAxis("Horizontal");
+
+        if (yDelta <= Mathf.Epsilon && xDelta <= Mathf.Epsilon)
+        {
+            mbMoving = false;
+
+            if (mActorIndex == 1)
+            {
+                mFmodEventInstances["event:/CoolCat/Cat_Move"].stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            }
+        }
+        else
+        {
+            mbMoving = true;
+        }
 
         if (CurrentLevel.LevelStatus == Level.eLevelStatus.LEVEL_3D)
         {
@@ -56,6 +74,11 @@ public class Player3D : Actor
             Rigidbody3D.MovePosition(Rigidbody3D.position + velocity);
             //Rigidbody3D.velocity += ;
 
+            if (mActorIndex == 1 && mbMoving == true)
+            {
+                mFmodEventInstances["event:/CoolCat/Cat_Move"].start();
+            }
+
             if (Mathf.Abs(xDelta) >= Mathf.Epsilon)
             {
                 mFacingDirection = new Vector3(Mathf.Sign(xDelta), 0, 0);
@@ -65,6 +88,7 @@ public class Player3D : Actor
             {
                 mFacingDirection = new Vector3(0, 0, Mathf.Sign(yDelta));
             }
+
         }
         else
         {
@@ -76,6 +100,11 @@ public class Player3D : Actor
                 velocity += decomp.normalized * velocity.magnitude;
 
             Rigidbody3D.MovePosition(Rigidbody3D.position + velocity);
+
+            if (mActorIndex == 1 && mbMoving == true)
+            {
+                mFmodEventInstances["event:/CoolCat/Cat_Move"].start();
+            }
 
             if (Input.GetKeyDown(KeyCode.Space) && mJumpCount < MaxJumpCount)
             {
@@ -105,6 +134,13 @@ public class Player3D : Actor
             jumpVelocity -= delta;
 
             t += Time.deltaTime;
+
+            if (mActorIndex == 1)
+            {
+                mbMoving = false;
+                mFmodEventInstances["event:/CoolCat/Cat_Move"].stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            }
+
             yield return null;
         }
     }
@@ -143,6 +179,35 @@ public class Player3D : Actor
     protected override void Awake()
     {
         base.Awake();
+
+        mFmodEvents.Add("event:/BGM/Depeat");
+        mFmodEvents.Add("event:/BGM/Main");
+        mFmodEvents.Add("event:/BGM/Victory");
+
+        mFmodEvents.Add("event:/CoolCat/Cat_Attack");
+        mFmodEvents.Add("event:/CoolCat/Cat_Dash");
+        mFmodEvents.Add("event:/CoolCat/Cat_Hit");
+        mFmodEvents.Add("event:/CoolCat/Cat_Hurt");
+
+        mFmodEvents.Add("event:/CoolCat/Cat_Jump");
+        mFmodEvents.Add("event:/CoolCat/Cat_Move");
+        mFmodEvents.Add("event:/CoolCat/Cat_Taunt");
+
+        mFmodEvents.Add("event:/HotDog/Dog_Attack");
+        mFmodEvents.Add("event:/HotDog/Dog_Dash");
+        mFmodEvents.Add("event:/HotDog/Dog_Hit");
+        mFmodEvents.Add("event:/HotDog/Dog_Hurt");
+        mFmodEvents.Add("event:/HotDog/Dog_Idle");
+        mFmodEvents.Add("event:/HotDog/Dog_Jump");
+        mFmodEvents.Add("event:/HotDog/Dog_Taunt");
+
+        foreach (var e in mFmodEvents)
+        {
+            FMOD.Studio.EventInstance inst = FMODUnity.RuntimeManager.CreateInstance(e);
+            mFmodEventInstances.Add(e, inst);
+
+            inst.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(this.transform));
+        }
 
         wrapper = new CoroutineWrapper(this);
 

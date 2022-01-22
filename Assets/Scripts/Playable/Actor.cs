@@ -47,6 +47,8 @@ public abstract class Actor : MonoBehaviour
         get { return mActorIndex; }
     }
 
+    protected bool mbMoving;
+
     [Header("Network")]
 
     [SerializeField]
