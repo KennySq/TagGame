@@ -231,6 +231,11 @@ public class Player3D : Actor
 
         Debug.Log(CurrentLevel);
 
+        if (IsLocalPlayer == false)
+        {
+            return;
+        }
+
         if (CurrentLevel.LevelStatus == Level.eLevelStatus.LEVEL_2D)
         {
             GroundState.CurrentData = CheckGround();
@@ -242,7 +247,6 @@ public class Player3D : Actor
         {
             Rigidbody3D.velocity += Gravity3D * Time.deltaTime;
         }
-
     }
 
     private bool CheckGround()
