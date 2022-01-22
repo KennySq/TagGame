@@ -5,7 +5,10 @@ using UnityEngine;
 public class Player3D : Actor
 {
     private CapsuleCollider mCapsule3D;
-    private CapsuleCollider2D mCapsule2D;
+    public CapsuleCollider Capsule3D
+    {
+        get { return mCapsule3D; }
+    }
 
     // 기본 컨트롤
     protected override void Controller()
@@ -15,20 +18,19 @@ public class Player3D : Actor
 
         if(CurrentLevel.LevelStatus == Level.eLevelStatus.LEVEL_3D)
         {
-            Rigidbody3D.AddRelativeForce(new Vector3(xDelta * MoveSpeed, 0.0f, yDelta * MoveSpeed));
+            Rigidbody3D.velocity += (new Vector3(xDelta * MoveSpeed, 0.0f, yDelta * MoveSpeed));
         }
         else
         {
-            Rigidbody3D.AddRelativeForce(new Vector3(xDelta * MoveSpeed, 0.0f, 0.0f));
+            Rigidbody3D.velocity += new Vector3(xDelta * MoveSpeed, 0.0f, 0.0f);
 
-            if(Input.GetKeyDown(KeyCode.Space) && mbAir == false)
+            if(Input.GetKeyDown(KeyCode.Space) && mJumpCount < MaxJumpCount)
             {
-                Rigidbody3D.AddForce(new Vector3(0.0f, 0.0f, JumpPower), ForceMode.Impulse);
+                Rigidbody3D.velocity += new Vector3(0.0f, 0.0f, JumpPower);
 
-                mbAir = true;
+                mJumpCount++;
             }
         }
-
 
         return;
     }
@@ -58,19 +60,23 @@ public class Player3D : Actor
 
         if(CurrentLevel.LevelStatus == Level.eLevelStatus.LEVEL_2D)
         {
-            Ray r = new Ray(ActorTransform.position, -Vector3.forward + ActorTransform.position);
             RaycastHit hitResult;
-            Debug.DrawLine(r.origin, ActorTransform.position - (Vector3.forward * 10), Color.red, 2.0f, false);
 
-            if (Physics.Raycast(ActorTransform.position, ActorTransform.position - (Vector3.forward * 10), out hitResult, Mathf.Infinity))
+            Vector3 rayStart = new Vector3(ActorTransform.position.x, ActorTransform.position.y, ActorTransform.position.z - (Capsule3D.height / 2.0f));
+            Ray r = new Ray(ActorTransform.position, -Vector3.forward + ActorTransform.position);
+            Debug.DrawLine(rayStart, ActorTransform.position - (Vector3.forward * 10), Color.red, 2.0f, false);
+
+            if (Physics.Raycast(rayStart, ActorTransform.position - (Vector3.forward * 10), out hitResult, Mathf.Infinity))
             {
-                Debug.Log(hitResult.distance);
+                Debug.Log(hitResult.collider.name);
                 if(hitResult.distance < (mCapsule3D.radius * 2.0f))
                 {
-                    mbAir = false;
+                    mJumpCount = 0;
                 }
             }
         }
+
+
 
     }
 }
