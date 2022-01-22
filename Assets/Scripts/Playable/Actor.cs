@@ -56,7 +56,7 @@ public abstract class Actor : MonoBehaviour
     private TestReceivePosition mReceivePosition;
     public TestReceivePosition ReceivePosition { get => mReceivePosition; }
 
-    protected bool IsLocalPlayer { get { return LocalPlayer.CurrentData.gameObject == gameObject; } }
+    protected bool IsLocalPlayer { get { return LocalPlayer.CurrentData.gameObject != gameObject; } }
 
     protected virtual void Awake()
     {

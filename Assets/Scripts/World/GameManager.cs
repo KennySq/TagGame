@@ -37,9 +37,11 @@ public class GameManager : MonoBehaviour
         mLocalPlayer = obj.gameObject;
 
         Actor localActor = obj;
+
         localActor.CurrentLevel = mLevel;
         mLevel.LocalPlayer = mLocalPlayer;
         mLevel.MainCamera = mLocalPlayer.GetComponentInChildren<Camera>();
+        mLevel.MainCamera.enabled = true;
     }
 
 }

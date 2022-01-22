@@ -61,6 +61,8 @@ public class Player3D : Actor
             Controller();
         }
 
+        Debug.Log(CurrentLevel);
+
         if (CurrentLevel.LevelStatus == Level.eLevelStatus.LEVEL_2D)
         {
             RaycastHit hitResult;
@@ -71,8 +73,6 @@ public class Player3D : Actor
 
             if (Physics.Raycast(rayStart, ActorTransform.position - (Vector3.forward * 10), out hitResult, Mathf.Infinity))
             {
-                Debug.Log(hitResult.collider.name);
-
                 GameObject gameObject = hitResult.collider.gameObject;
                 if(hitResult.distance < (mCapsule3D.radius * 2.0f))
                 {
