@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: HotDog_controller
+  m_Controller: {fileID: 9100000, guid: 280e2e2585648c54bbe6e046e7860e79, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: fb5cc611347dd63408500cb9e2d72103, type: 2}
+    m_OverrideClip: {fileID: 2941492929548348381, guid: 5ef8c09d69cf2d94191394891ac09cb6,
+      type: 3}
+  - m_OriginalClip: {fileID: 2385329262545955268, guid: 9ab4c157c3757b44f8a5818ecd170d4c,
+      type: 3}
+    m_OverrideClip: {fileID: -8566073261482738807, guid: acbc8d590dc582c48a40419fb20754b3,
+      type: 3}
+  - m_OriginalClip: {fileID: 2385329262545955268, guid: d195902ceb646ae48991edc3732d455d,
+      type: 3}
+    m_OverrideClip: {fileID: -5718339089500334715, guid: 1d3f2b79594f135418ad84d24a0126f1,
+      type: 3}
+  - m_OriginalClip: {fileID: 2385329262545955268, guid: f8e9af41f07a7874aa4e44805e3fd660,
+      type: 3}
+    m_OverrideClip: {fileID: 3256295489709507654, guid: 001c08967442ba841aad1e25e6bf919f,
+      type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 465f29e3d85a0124ab1ddeadd8a69e61, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 40b90e8e9442364428d84b0c893bf030, type: 2}
