@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
         localActor.CurrentLevel = mLevel;
         mLevel.LocalPlayer = mLocalPlayer;
         mLevel.MainCamera = mLocalPlayer.GetComponentInChildren<Camera>();
-        mLevel.MainCamera.enabled = true;
+        mLevel.RemotePlayer.GetComponentInChildren<Camera>().enabled = false;
     }
 
 }
