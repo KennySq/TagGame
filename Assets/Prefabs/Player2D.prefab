@@ -171,6 +171,7 @@ MonoBehaviour:
   MaxJumpCount: 2
   CurrentLevel: {fileID: 0}
   RigidGameObject: {fileID: 0}
+  MainCamera: {fileID: 5976403280127943980}
   mMesh: {fileID: 0}
   mActorIndex: 1
   mSendPosition: {fileID: 5065277595120603777}

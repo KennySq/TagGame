@@ -29,12 +29,7 @@ public abstract class Actor : MonoBehaviour
 
     public GameObject RigidGameObject;
 
-    [SerializeField]
-    protected Camera mMainCamera;
-    public Camera MainCamera
-    {
-        get { return mMainCamera; }
-    }
+    public Camera MainCamera;
 
     [SerializeField]
     protected GameObject mMesh;
@@ -69,6 +64,8 @@ public abstract class Actor : MonoBehaviour
         else // otherWise
         {
             ReceivePosition.enabled = true;
+
+            
         }
     }
 

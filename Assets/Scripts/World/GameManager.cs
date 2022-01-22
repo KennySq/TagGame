@@ -35,13 +35,12 @@ public class GameManager : MonoBehaviour
     private void OnLocalPlayerInitlaized(Actor obj)
     {
         mLocalPlayer = obj.gameObject;
-
         Actor localActor = obj;
 
         localActor.CurrentLevel = mLevel;
         mLevel.LocalPlayer = mLocalPlayer;
-        mLevel.MainCamera = mLocalPlayer.GetComponentInChildren<Camera>();
-        mLevel.RemotePlayer.GetComponentInChildren<Camera>().enabled = false;
+        mLevel.MainCamera = localActor.MainCamera;
+        localActor.MainCamera.enabled = true;
     }
 
 }
