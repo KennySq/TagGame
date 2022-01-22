@@ -6,6 +6,28 @@ using UnityEngine;
 
 public class TestSendPosition : MonoBehaviour
 {
+    [SerializeField]
+    private Rigidbody rigid;
+    private Actor Owner;
+
+    //dummys;
+    private Vector3 CurrentVelocity;
+    private Vector3 LastVelocity;
+
+    private Vector3 Acceleraction;
+
+    private Quaternion LastRotation;
+    private Quaternion CurrentRotation;
+
+    public void Initialize(in Actor actor)
+    {
+        this.enabled = true;
+
+        Owner = actor;
+
+        Owner.OnTeleport += Owner_OnTeleport;
+    }
+
     private IEnumerator Start()
     {
         var waitForSendRate = new WaitForSecondsRealtime(1f / PhotonNetwork.SendRate);
@@ -18,18 +40,10 @@ public class TestSendPosition : MonoBehaviour
         }
     }
 
-    [SerializeField]
-    private Rigidbody rigid;
-
-    //dummys;
-    private Vector3 CurrentVelocity;
-    private Vector3 LastVelocity;
-
-    private Vector3 Acceleraction;
-
-    private Quaternion LastRotation;
-    private Quaternion CurrentRotation;
-
+    private void Owner_OnTeleport()
+    {
+        UpdateInternal(true);
+    }
 
     private void FixedUpdate()
     {
@@ -42,7 +56,7 @@ public class TestSendPosition : MonoBehaviour
         CurrentRotation = transform.rotation;
     }
 
-    private void UpdateInternal()
+    private void UpdateInternal(bool isSnap = false)
     {
         TagGame.Photon.PhotonManager.SendTrackedPoseData(new TagGame.Photon.TrackedPosePacket()
         {
@@ -51,6 +65,7 @@ public class TestSendPosition : MonoBehaviour
             acceleration = Acceleraction,
 
             rot = transform.rotation,
+            useSnap = isSnap ? 1 : 0
         });
     }
 }

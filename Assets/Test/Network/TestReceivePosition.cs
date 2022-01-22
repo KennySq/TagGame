@@ -42,7 +42,7 @@ public class TestReceivePosition : MonoBehaviour
 
     private void PhotonManager_OnTrackedPoseMessageReceive(TagGame.Photon.TrackedPosePacket packet)
     {
-        UpdateTarget(packet.time_stamp, packet.pos, packet.rot, packet.velocity, packet.acceleration);
+        UpdateTarget(packet.time_stamp, packet.pos, packet.rot, packet.velocity, packet.acceleration, packet.useSnap == 1);
     }
 
     private void Update()
@@ -66,10 +66,10 @@ public class TestReceivePosition : MonoBehaviour
         rigid.rotation= Quaternion.Slerp(rigid.rotation, PredictionRotation, InterpolationFactor);
     }
 
-    public void UpdateTarget(in int timeStamp, in Vector3 nextPosition, in Quaternion nextRotation, in Vector3 velocity, in Vector3 acceleration)
+    public void UpdateTarget(in int timeStamp, in Vector3 nextPosition, in Quaternion nextRotation, in Vector3 velocity, in Vector3 acceleration, in bool useSnap)
     {
         //when first received
-        if (!isReceived)
+        if (!isReceived || useSnap)
         {
             rigid.position = TargetPosition = nextPosition;
             rigid.rotation = TargetRotation = nextRotation;
