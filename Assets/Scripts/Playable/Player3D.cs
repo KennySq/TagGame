@@ -224,8 +224,7 @@ public class Player3D : Actor
         }
         else
         {
-            if (GroundState.CurrentData == false && !wrapper.IsPlaying)
-                Rigidbody3D.velocity += Gravity3D * Time.deltaTime;
+            Rigidbody3D.velocity += Gravity3D * Time.deltaTime;
         }
 
     }
