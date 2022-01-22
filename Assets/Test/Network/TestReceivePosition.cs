@@ -62,8 +62,8 @@ public class TestReceivePosition : MonoBehaviour
         var lerpPosition = Vector3.LerpUnclamped(TargetPosition, PredictionPosition, ExtrapolationFactor);
         //var lerpRotation = Quaternion.SlerpUnclamped(TargetRotation, PredictionRotation, ExtrapolationFactor);
 
-        rigid.position= Vector3.Lerp(rigid.position, lerpPosition, InterpolationFactor);
-        rigid.rotation= Quaternion.Slerp(rigid.rotation, PredictionRotation, InterpolationFactor);
+        rigid.position = Vector3.Lerp(rigid.position, lerpPosition, InterpolationFactor);
+        rigid.rotation = Quaternion.Slerp(rigid.rotation, PredictionRotation, InterpolationFactor);
     }
 
     public void UpdateTarget(in int timeStamp, in Vector3 nextPosition, in Quaternion nextRotation, in Vector3 velocity, in Vector3 acceleration, in bool useSnap)
@@ -95,10 +95,12 @@ public class TestReceivePosition : MonoBehaviour
         UpdateTime = 0f;
         LastTimeStamp = timeStamp;
 
-        //continuous received
-        lerpFactor = Mathf.Lerp(lerpFactor, (velocity + (acceleration * (transportDiff + PacketSendInterval))).magnitude, 0.4f);
+        rigid.velocity = velocity;
 
-        PredictionPosition = nextPosition + (velocity + (acceleration * (transportDiff + PacketSendInterval))) * (transportDiff + PacketSendInterval);
+        //continuous received
+        lerpFactor = Mathf.Lerp(lerpFactor, (velocity /*+ (acceleration * (transportDiff + PacketSendInterval))*/).magnitude, 0.4f);
+
+        PredictionPosition = nextPosition + (velocity /*+ (acceleration * (transportDiff + PacketSendInterval))*/) * (transportDiff + PacketSendInterval);
         PredictionRotation = nextRotation * (nextRotation * Quaternion.Inverse(TargetRotation));
 
         TargetPosition = nextPosition;
