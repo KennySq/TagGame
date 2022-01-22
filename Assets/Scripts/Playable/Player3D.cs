@@ -16,9 +16,9 @@ public class Player3D : Actor
     [SerializeField]
     private Animator animator;
 
-    public const float GravityScalar = -2.45f;
-    Vector3 Gravity2D = new Vector3(0.0f, 0.0f, GravityScalar);
-    Vector3 Gravity3D = new Vector3(0.0f, GravityScalar, 0.0f);
+    public float GravityScalar = -2.45f;
+    Vector3 Gravity2D;
+    Vector3 Gravity3D;
 
     // 기본 컨트롤
     protected override void Controller()
@@ -62,6 +62,9 @@ public class Player3D : Actor
 
         ActorTransform = mRigidbody3D.transform;
         inputMovement.OnDataChanged += Movement_OnDataChanged;
+
+        Gravity2D = new Vector3(0.0f, 0.0f, GravityScalar);
+        Gravity3D = new Vector3(0.0f, GravityScalar, 0.0f);
     }
 
     private void Movement_OnDataChanged(bool isMove)
