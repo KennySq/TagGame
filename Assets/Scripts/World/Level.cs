@@ -155,7 +155,7 @@ public class Level : MonoBehaviour
 
             mMainCamera.transform.position = Vector3.Lerp(mMainCamera.transform.position, targetPosition, 0.1f);
             // mMainCamera.transform.position = new Vector3(mMainCamera.transform.position.x, mMainCamera.transform.position.y, length);
-            //mMainCamera.transform.position -= mMainCamera.transform.TransformDirection(mMainCamera.transform.forward * distance);
+            mMainCamera.transform.position -= mMainCamera.transform.TransformDirection(mMainCamera.transform.forward * distance);
 
             mMainCamera.fieldOfView = Mathf.Lerp(mMainCamera.fieldOfView, mCurrentCameraOption.FOV, 0.1f);
         }
