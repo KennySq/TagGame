@@ -1286,6 +1286,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 817590370}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &817590376 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 817590373, guid: 2176817ffd3080d459032f984661c97b,
+    type: 3}
+  m_PrefabInstance: {fileID: 817590370}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2740,6 +2746,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1549493004}
     m_Modifications:
+    - target: {fileID: 1429792535, guid: 8f0e51ac2a2bad642a6527c6ad93c033, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 817590376}
     - target: {fileID: 1429792535, guid: 8f0e51ac2a2bad642a6527c6ad93c033, type: 3}
       propertyPath: CurrentLevel
       value: 

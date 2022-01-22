@@ -1,14 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utils;
 
 public class Player3D : Actor
 {
+    private readonly Notifier<bool> inputMovement = new Notifier<bool>();
+
     private CapsuleCollider mCapsule3D;
     public CapsuleCollider Capsule3D
     {
         get { return mCapsule3D; }
     }
+
+    [SerializeField]
+    private Animator animator;
 
     // 기본 컨트롤
     protected override void Controller()
@@ -32,6 +38,8 @@ public class Player3D : Actor
             }
         }
 
+        inputMovement.CurrentData = new Vector2(xDelta, yDelta).magnitude > 0.2f;
+
         return;
     }
 
@@ -47,11 +55,22 @@ public class Player3D : Actor
         mMesh = mRigidbody3D.transform.Find("Mesh").gameObject;
 
         ActorTransform = mRigidbody3D.transform;
+        inputMovement.OnDataChanged += Movement_OnDataChanged;
     }
 
-   void Start()
+    private void Movement_OnDataChanged(bool isMove)
     {
-        
+        //공격시 아래의 애니메이션 코드를 실행해 주세요
+        //animator.SetTrigger("attack");
+
+        if (isMove)
+        {
+            animator.SetTrigger("walk_start");
+        }
+        else
+        {
+            animator.SetTrigger("walk_end");
+        }
     }
 
     void Update()
