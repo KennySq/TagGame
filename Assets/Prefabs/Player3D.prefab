@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 4320146716926194957}
   - component: {fileID: 8994923367859044717}
   - component: {fileID: 5272099672885260940}
+  - component: {fileID: 530682421446449082}
+  - component: {fileID: 8775301881922804204}
   m_Layer: 0
   m_Name: Rigid3D
   m_TagString: Untagged
@@ -64,6 +66,31 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &530682421446449082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 656224760509870094}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5665a2811782d604f82d007d5df08ba1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8775301881922804204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 656224760509870094}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d5398998eca20a44b4ae5f12fd79c34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  updateRate: 0
 --- !u!1 &4778443248269123725
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,8 +219,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7200470266811433990}
   - component: {fileID: 1429792535}
-  - component: {fileID: 1429792533}
-  - component: {fileID: 1429792534}
   m_Layer: 0
   m_Name: Player3D
   m_TagString: Player
@@ -238,33 +263,8 @@ MonoBehaviour:
   MainCamera: {fileID: 1493796758204577710}
   mMesh: {fileID: 0}
   mActorIndex: 0
-  mSendPosition: {fileID: 1429792533}
-  mReceivePosition: {fileID: 1429792534}
---- !u!114 &1429792533
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7200470266811433986}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5665a2811782d604f82d007d5df08ba1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1429792534
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7200470266811433986}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d5398998eca20a44b4ae5f12fd79c34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  updateRate: 0
+  mSendPosition: {fileID: 530682421446449082}
+  mReceivePosition: {fileID: 8775301881922804204}
 --- !u!1 &8450334399968841512
 GameObject:
   m_ObjectHideFlags: 0
