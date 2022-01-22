@@ -805,6 +805,11 @@ PrefabInstance:
       propertyPath: CurrentLevel
       value: 
       objectReference: {fileID: 988347933}
+    - target: {fileID: 4778443248269123725, guid: 8f0e51ac2a2bad642a6527c6ad93c033,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7200470266811433986, guid: 8f0e51ac2a2bad642a6527c6ad93c033,
         type: 3}
       propertyPath: m_Name
@@ -3385,7 +3390,7 @@ PrefabInstance:
     - target: {fileID: 295843342747005455, guid: 2176817ffd3080d459032f984661c97b,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 564956210334906566, guid: 2176817ffd3080d459032f984661c97b,
         type: 3}
