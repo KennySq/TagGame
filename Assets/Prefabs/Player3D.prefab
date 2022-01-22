@@ -261,7 +261,7 @@ MonoBehaviour:
   CurrentLevel: {fileID: 0}
   RigidGameObject: {fileID: 656224760509870094}
   MainCamera: {fileID: 1493796758204577710}
-  mMesh: {fileID: 0}
+  mMesh: {fileID: 8450334399968841512}
   mActorIndex: 0
   mSendPosition: {fileID: 530682421446449082}
   mReceivePosition: {fileID: 8775301881922804204}
