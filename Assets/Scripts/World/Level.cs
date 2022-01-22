@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// «ˆ¿Á ∑π∫ß¿ª ∞¸∏Æ«œ¥¬ ≈¨∑°Ω∫
-// ƒ´∏ﬁ∂Û, 2D,3D ªÛ≈¬ ∞¸∏Æ
+// ÌòÑÏû¨ Î†àÎ≤®ÏùÑ Í¥ÄÎ¶¨ÌïòÎäî ÌÅ¥ÎûòÏä§
+// Ïπ¥Î©îÎùº, 2D,3D ÏÉÅÌÉú Í¥ÄÎ¶¨
 public class Level : MonoBehaviour
 {
     struct CameraSetup
@@ -39,35 +39,60 @@ public class Level : MonoBehaviour
         set { mMainCamera = value; }
     }
 
-    // pre-set ƒ´∏ﬁ∂Û ø…º«
-    CameraSetup CamSetup2D = new CameraSetup(new Vector3(0, 0, -5.5f), Quaternion.Euler(0, 0, 0), 0.0f);
-    CameraSetup CamSetup3D = new CameraSetup(new Vector3(0, 4.5f, -5.5f), Quaternion.Euler(30, 0, 0), 60.0f);
+    // pre-set Ïπ¥Î©îÎùº ÏòµÏÖò
+    CameraSetup CamSetup2D = new CameraSetup(new Vector3(0, 30.0f, 0.0f), Quaternion.Euler(90, 0, 0), 0.0f);
+    CameraSetup CamSetup3D = new CameraSetup(new Vector3(0, 4.5f, -10.0f), Quaternion.Euler(45, 0, 0), 60.0f);
+
+    public const float GravityScalar = -64.0f;
+    Vector3 Gravity2D = new Vector3(0.0f, 0.0f, GravityScalar * 2);
+    Vector3 Gravity3D = new Vector3(0.0f, GravityScalar, 0.0f);
+
+    private CameraSetup mCurrentCameraOption;
 
     private GameObject mLocalPlayer;
     public GameObject LocalPlayer
     {
         get { return mLocalPlayer; }
-        set { mLocalPlayer = value; }
+        set
+        {
+            mLocalPlayer = value;
+            mLocalActor = mLocalPlayer.GetComponent<Actor>();
+        }
     }
 
-    // ∑π∫ß ªÛ≈¬ Ω∫¿ßƒ™ (2D <-> 3D)
+    private GameObject mRemotePlayer;
+    public GameObject RemotePlayer
+    {
+        get { return mRemotePlayer; }
+        set
+        {
+            mRemotePlayer = value;
+        }
+    }
+
+    private Actor mLocalActor;
+    public Actor LocalActor
+    {
+        get { return mLocalActor; }
+    }
+
+    // Î†àÎ≤® ÏÉÅÌÉú Ïä§ÏúÑÏπ≠ (2D <-> 3D)
     public void SwitchLevelStatus()
     {
         if (mLevelStatus == eLevelStatus.LEVEL_2D)
         {
             mLevelStatus = eLevelStatus.LEVEL_3D;
+            Physics.gravity = Gravity3D;
 
-            MainCamera.transform.position = CamSetup3D.PositionOffset;
-            MainCamera.transform.rotation = CamSetup3D.RotationOffset;
-            MainCamera.fieldOfView = CamSetup3D.FOV;
+            mCurrentCameraOption = CamSetup3D;
             MainCamera.orthographic = false;
         }
         else
         {
             mLevelStatus = eLevelStatus.LEVEL_2D;
+            Physics.gravity = Gravity2D;
 
-            MainCamera.transform.position = CamSetup2D.PositionOffset;
-            MainCamera.transform.rotation = CamSetup2D.RotationOffset;
+            mCurrentCameraOption = CamSetup2D;
             MainCamera.orthographic = true;
         }
 
@@ -78,11 +103,37 @@ public class Level : MonoBehaviour
     private void Awake()
     {
         mMainCamera = Camera.main;
-    }
+        mCurrentCameraOption = CamSetup2D;
 
+        // Temporal Code
+        RemotePlayer = GameObject.Find("Billy");
+        // -------------
+    }
 
     private void Update()
     {
+        GameObject rigidObject = mLocalActor.RigidGameObject3D;
+        Vector3 targetPosition;
+
+        Vector3 remotePosition = RemotePlayer.transform.position;
+        Vector3 localPosition = rigidObject.transform.position;
+
+        Vector3 distanceVector = (localPosition + remotePosition) * 0.5f;
+
+        float length = Vector3.Distance(localPosition, remotePosition);
+
+        targetPosition = distanceVector + CamSetup3D.PositionOffset;
+        Debug.DrawLine(mMainCamera.transform.position, distanceVector, Color.red, 1.0f, false);
+        Quaternion targetRotation = mCurrentCameraOption.RotationOffset;
+
+        mMainCamera.transform.rotation = Quaternion.Slerp(mMainCamera.transform.rotation, targetRotation, 0.1f);
+
+        mMainCamera.transform.position = Vector3.Lerp(mMainCamera.transform.position, targetPosition, 0.1f);
+        // mMainCamera.transform.position = new Vector3(mMainCamera.transform.position.x, mMainCamera.transform.position.y, length);
+        mMainCamera.transform.position -= mMainCamera.transform.TransformDirection(mMainCamera.transform.forward * (length / mMainCamera.fieldOfView));
+
+        mMainCamera.fieldOfView = Mathf.Lerp(mMainCamera.fieldOfView, mCurrentCameraOption.FOV, 0.1f);
+
 
     }
 

@@ -2,13 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Actor Ãß»ó Å¬·¡½º
-// ÇÃ·¹ÀÌ°¡ °¡´ÉÇÑ Ä³¸¯ÅÍ´Â ÀÌ Å¬·¡½º·ÎºÎÅÍ »ó¼Ó¹Ş½À´Ï´Ù.
+// Actor ì¶”ìƒ í´ë˜ìŠ¤
+// í”Œë ˆì´ê°€ ê°€ëŠ¥í•œ ìºë¦­í„°ëŠ” ì´ í´ë˜ìŠ¤ë¡œë¶€í„° ìƒì†ë°›ìŠµë‹ˆë‹¤.
 public abstract class Actor : MonoBehaviour
 {
     public float MoveSpeed;
+    public float JumpPower;
+
+    [SerializeField]
+    protected bool mbAir;
 
     public Level CurrentLevel;
+
+    protected Transform ActorTransform;
 
     protected Rigidbody mRigidbody3D;
     protected Rigidbody Rigidbody3D
@@ -17,13 +23,13 @@ public abstract class Actor : MonoBehaviour
     }
 
     protected Rigidbody2D mRigidbody2D;
-    protected Rigidbody2D Rigidbody2D
-    {
-        get { return mRigidbody2D; }
-    }
+    //protected Rigidbody2D Rigidbody2D
+    //{
+    //    get { return mRigidbody2D; }
+    //}
 
-    public GameObject RigidGameObject3D; // rigidbody 3d ±×·ì
-    public GameObject RigidGameObject2D; // rigidbody 2d ±×·ì
+    public GameObject RigidGameObject3D; // rigidbody 3d ê·¸ë£¹
+    //public GameObject RigidGameObject2D; // rigidbody 2d ê·¸ë£¹
 
     protected Camera mMainCamera;
     public Camera MainCamera
@@ -38,28 +44,22 @@ public abstract class Actor : MonoBehaviour
         get { return mMesh; }
     }
 
-    // Á¶ÀÛ ¼ø¼ö °¡»óÇÔ¼ö
+    // ì¡°ì‘ ìˆœìˆ˜ ê°€ìƒí•¨ìˆ˜
     protected abstract void Controller();
 
-    // 2D, 3D »óÅÂ¿¡ µû¸¥ ¸ğµå ½ºÀ§Äª
+    static readonly Quaternion Rotation2D = Quaternion.Euler(90.0f, 0.0f, 0.0f);
+
+    // 2D, 3D ìƒíƒœì— ë”°ë¥¸ ëª¨ë“œ ìŠ¤ìœ„ì¹­
     public void SwitchMode(Level.eLevelStatus status)
     {
-        if (status == Level.eLevelStatus.LEVEL_3D)
+        if(status == Level.eLevelStatus.LEVEL_2D)
         {
-            RigidGameObject3D.SetActive(true);
-            RigidGameObject2D.SetActive(false);
-
-            MainCamera.transform.SetParent(RigidGameObject3D.transform);
-            mMesh.transform.SetParent(RigidGameObject3D.transform);
-
+            Rigidbody3D.rotation = Rotation2D;
         }
         else
         {
-            RigidGameObject3D.SetActive(false);
-            RigidGameObject2D.SetActive(true);
-
-            MainCamera.transform.SetParent(RigidGameObject2D.transform);
-            mMesh.transform.SetParent(RigidGameObject2D.transform);
+            Rigidbody3D.rotation = Quaternion.identity;
         }
+
     }
 }
