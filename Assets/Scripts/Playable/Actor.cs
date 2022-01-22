@@ -23,13 +23,7 @@ public abstract class Actor : MonoBehaviour
     }
 
     protected Rigidbody2D mRigidbody2D;
-    //protected Rigidbody2D Rigidbody2D
-    //{
-    //    get { return mRigidbody2D; }
-    //}
-
-    public GameObject RigidGameObject3D; // rigidbody 3d 그룹
-    //public GameObject RigidGameObject2D; // rigidbody 2d 그룹
+    public GameObject RigidGameObject;
 
     protected Camera mMainCamera;
     public Camera MainCamera
@@ -42,6 +36,14 @@ public abstract class Actor : MonoBehaviour
     public GameObject Mesh
     {
         get { return mMesh; }
+    }
+
+    [SerializeField]
+    int mActorIndex = -1;
+
+    protected virtual void Awake()
+    {
+        
     }
 
     // 조작 순수 가상함수

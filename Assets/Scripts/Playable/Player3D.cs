@@ -35,8 +35,10 @@ public class Player3D : Actor
         return;
     }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         // Rigidbody, Collision 초기화.
         mRigidbody3D = GetComponentInChildren<Rigidbody>();
         mRigidbody2D = GetComponentInChildren<Rigidbody2D>();
@@ -49,7 +51,7 @@ public class Player3D : Actor
         ActorTransform = mRigidbody3D.transform;
     }
 
-    void Start()
+   void Start()
     {
         
     }
@@ -69,7 +71,9 @@ public class Player3D : Actor
             if (Physics.Raycast(rayStart, ActorTransform.position - (Vector3.forward * 10), out hitResult, Mathf.Infinity))
             {
                 Debug.Log(hitResult.collider.name);
-                if(hitResult.distance < (mCapsule3D.radius * 2.0f))
+
+                GameObject gameObject = hitResult.collider.gameObject;
+                if(hitResult.distance < (mCapsule3D.radius * 2.0f) && )
                 {
                     mJumpCount = 0;
                 }
