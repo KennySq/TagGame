@@ -24,7 +24,7 @@ public class Player3D : Actor
 
         if(CurrentLevel.LevelStatus == Level.eLevelStatus.LEVEL_3D)
         {
-            Rigidbody3D.velocity += (new Vector3(xDelta * MoveSpeed, 0.0f, yDelta * MoveSpeed));
+            Rigidbody3D.velocity += (new Vector3(xDelta * MoveSpeed * Time.deltaTime, 0.0f, yDelta * MoveSpeed * Time.deltaTime));
         }
         else
         {
@@ -32,7 +32,7 @@ public class Player3D : Actor
 
             if(Input.GetKeyDown(KeyCode.Space) && mJumpCount < MaxJumpCount)
             {
-                Rigidbody3D.velocity += new Vector3(0.0f, 0.0f, JumpPower);
+                Rigidbody3D.velocity += new Vector3(0.0f, 0.0f, JumpPower * Time.deltaTime);
 
                 mJumpCount++;
             }
