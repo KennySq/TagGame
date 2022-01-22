@@ -89,6 +89,9 @@ public class Player3D : Actor
             Vector3 direction = transform.position;
 
 
+
+
+
         }
     }
 
@@ -119,11 +122,11 @@ public class Player3D : Actor
                 }
             }
 
-            Rigidbody3D.velocity += Gravity2D;
+            Rigidbody3D.velocity += Gravity2D * Time.deltaTime;
         }
         else
         {
-            Rigidbody3D.velocity += Gravity3D;
+            Rigidbody3D.velocity += Gravity3D * Time.deltaTime;
 
         }
 
