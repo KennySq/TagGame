@@ -133,7 +133,7 @@ public class Level : MonoBehaviour
 
         TimerText.text = (SwitchTime - mSwitchTimer).ToString("N2");
 
-        GameObject rigidObject = mLocalActor.RigidGameObject3D;
+        GameObject rigidObject = mLocalActor.RigidGameObject;
         Vector3 remotePosition = RemotePlayer.transform.position;
         Vector3 localPosition = rigidObject.transform.position;
         Quaternion targetRotation = mCurrentCameraOption.RotationOffset;
