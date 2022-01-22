@@ -58,6 +58,7 @@ public class Player3D : Actor
     {
         if(IsLocalPlayer == true)
         {
+            Debug.Log("Local");
             Controller();
         }
 

@@ -1,0 +1,162 @@
+fileFormatVersion: 2
+guid: 15699c10df15ee846bf0687ebedf27be
+ModelImporter:
+  serializedVersion: 21202
+  internalIDToNameTable:
+  - first:
+      74: 7682722724748579342
+    second: coolcat_idle
+  - first:
+      74: 3446258338133263532
+    second: coolcat_idle //// Object006
+  - first:
+      74: 4688442624238284291
+    second: coolcat_idle //// Object
+  - first:
+      74: -5724371482264235885
+    second: coolcat_idle //// Object012
+  - first:
+      74: 5497310882863651565
+    second: coolcat_idle //// Object014
+  - first:
+      74: -4780203770471299689
+    second: coolcat_idle //// Body01
+  - first:
+      74: 82800658799863505
+    second: coolcat_idle //// Point003
+  - first:
+      74: 5735903994694925618
+    second: coolcat_idle //// Point002
+  - first:
+      74: -132941306595845651
+    second: coolcat_idle //// Bone008
+  - first:
+      74: 8498815828400651906
+    second: coolcat_idle //// Bone009
+  - first:
+      74: -1009821812677590455
+    second: coolcat_idle //// Bone001
+  - first:
+      74: 6516744526727170622
+    second: coolcat_idle //// Bone002
+  - first:
+      74: 1668609703965422098
+    second: coolcat_idle //// Bone003
+  - first:
+      74: -2819453004884233974
+    second: coolcat_idle //// Bone004
+  - first:
+      74: 6986374859388419815
+    second: coolcat_idle //// Point001
+  - first:
+      74: -3044562671981688049
+    second: coolcat_idle //// Bone010
+  - first:
+      74: 8872375759365970526
+    second: coolcat_idle //// Bone011
+  - first:
+      74: -4907798538287296779
+    second: coolcat_idle //// Bone012
+  - first:
+      74: 9185745278683346588
+    second: coolcat_idle //// Point006
+  externalObjects: {}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 1
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 1
+    importConstraints: 1
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 1
+    weldVertices: 0
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: 0
+    indexFormat: 2
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 1
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

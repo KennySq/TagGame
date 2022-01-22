@@ -110,6 +110,10 @@ public class Level : MonoBehaviour
 
         Actor localActor = mLocalPlayer.GetComponent<Actor>();
         localActor.SwitchMode(mLevelStatus);
+
+        Actor remoteActor = mRemotePlayer.GetComponent<Actor>();
+        remoteActor.SwitchMode(mLevelStatus);
+
     }
 
     private void Awake()

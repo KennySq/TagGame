@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        mLevel = GetComponent<Level>();
         if (Actor.LocalPlayer.CurrentData == null)
         {
             Actor.LocalPlayer.OnDataChangedOnce += OnLocalPlayerInitlaized;
