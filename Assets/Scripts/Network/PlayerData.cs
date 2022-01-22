@@ -53,6 +53,8 @@ public class RemotePlayerData : Singleton<RemotePlayerData>
     {
         this.characterIndex.CurrentData = obj.index;
         LocalPlayerData.Instance.characterIndex.CurrentData = obj.index == 1 ? 0 : 1;
+
+        Debug.Log($"remote : {characterIndex.CurrentData}, local : {LocalPlayerData.Instance.characterIndex.CurrentData}");
     }
 
     public void Release()
