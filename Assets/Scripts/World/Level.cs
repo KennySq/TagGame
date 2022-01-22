@@ -113,7 +113,6 @@ public class Level : MonoBehaviour
 
     private void Awake()
     {
-        mMainCamera = Camera.main;
         mCurrentCameraOption = CamSetup2D;
 
         // Temporal Code
@@ -147,11 +146,11 @@ public class Level : MonoBehaviour
             Vector3 targetPosition;
 
             targetPosition = distanceVector + CamSetup3D.PositionOffset;
-            Debug.DrawLine(mMainCamera.transform.position, distanceVector, Color.red, 1.0f, false);
+            Debug.DrawLine(mMainCamera.transform.position, targetPosition, Color.red, 1.0f, false);
 
             mMainCamera.transform.position = Vector3.Lerp(mMainCamera.transform.position, targetPosition, 0.1f);
             // mMainCamera.transform.position = new Vector3(mMainCamera.transform.position.x, mMainCamera.transform.position.y, length);
-            mMainCamera.transform.position -= mMainCamera.transform.TransformDirection(mMainCamera.transform.forward * distance);
+            //mMainCamera.transform.position -= mMainCamera.transform.TransformDirection(mMainCamera.transform.forward * distance);
 
             mMainCamera.fieldOfView = Mathf.Lerp(mMainCamera.fieldOfView, mCurrentCameraOption.FOV, 0.1f);
         }

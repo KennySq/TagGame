@@ -41,11 +41,9 @@ public class Player3D : Actor
 
         // Rigidbody, Collision 초기화.
         mRigidbody3D = GetComponentInChildren<Rigidbody>();
-        mRigidbody2D = GetComponentInChildren<Rigidbody2D>();
-
         mCapsule3D = GetComponentInChildren<CapsuleCollider>();
 
-        mMainCamera = Camera.main;
+        RigidGameObject = transform.Find("Rigid3D").gameObject;
         mMesh = mRigidbody3D.transform.Find("Mesh").gameObject;
 
         ActorTransform = mRigidbody3D.transform;
@@ -58,9 +56,12 @@ public class Player3D : Actor
 
     void Update()
     {
-        Controller();
+        if(IsLocalPlayer == true)
+        {
+            Controller();
+        }
 
-        if(CurrentLevel.LevelStatus == Level.eLevelStatus.LEVEL_2D)
+        if (CurrentLevel.LevelStatus == Level.eLevelStatus.LEVEL_2D)
         {
             RaycastHit hitResult;
 

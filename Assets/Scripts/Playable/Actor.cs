@@ -22,7 +22,6 @@ public abstract class Actor : MonoBehaviour
         get { return mRigidbody3D; }
     }
 
-    protected Rigidbody2D mRigidbody2D;
     public GameObject RigidGameObject;
 
     protected Camera mMainCamera;
