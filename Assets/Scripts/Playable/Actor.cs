@@ -41,9 +41,29 @@ public abstract class Actor : MonoBehaviour
     [SerializeField]
     int mActorIndex = -1;
 
+    [Header("Network")]
+
+    [SerializeField]
+    private TestSendPosition mSendPosition;
+    public TestSendPosition SendPosition { get => mSendPosition; }
+
+    [SerializeField]
+    private TestReceivePosition mReceivePosition;
+    public TestReceivePosition ReceivePosition { get => mReceivePosition; }
+
+    protected bool IsLocalPlayer { get; private set; }
+
     protected virtual void Awake()
     {
-        
+        //LocalPlayerIndex is thisCharacter
+        if (mActorIndex == LocalPlayerData.Instance.characterIndex.CurrentData)
+        {
+            SendPosition.enabled = true;
+        }
+        else // otherWise
+        {
+            ReceivePosition.enabled = true;
+        }
     }
 
     // 조작 순수 가상함수

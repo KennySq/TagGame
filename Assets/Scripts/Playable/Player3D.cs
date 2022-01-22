@@ -73,7 +73,7 @@ public class Player3D : Actor
                 Debug.Log(hitResult.collider.name);
 
                 GameObject gameObject = hitResult.collider.gameObject;
-                if(hitResult.distance < (mCapsule3D.radius * 2.0f) && )
+                if(hitResult.distance < (mCapsule3D.radius * 2.0f))
                 {
                     mJumpCount = 0;
                 }
