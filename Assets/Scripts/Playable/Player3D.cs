@@ -50,18 +50,25 @@ public class Player3D : Actor
         float yDelta = Input.GetAxis("Vertical");
         float xDelta = Input.GetAxis("Horizontal");
 
-        if (yDelta <= Mathf.Epsilon && xDelta <= Mathf.Epsilon)
+        if (Mathf.Abs(yDelta) <= Mathf.Epsilon && Mathf.Abs(xDelta) <= Mathf.Epsilon)
         {
+            if (mActorIndex == 1 && mbMoving == true)
+            {
+                mFmodEventInstances["event:/CoolCat/Cat_Move"].start();
+            }
+
             mbMoving = false;
 
-            if (mActorIndex == 1)
-            {
-                mFmodEventInstances["event:/CoolCat/Cat_Move"].stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-            }
         }
         else
         {
+            if (mActorIndex == 1 && mbMoving == false)
+            {
+                mFmodEventInstances["event:/CoolCat/Cat_Move"].stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            }
+
             mbMoving = true;
+
         }
 
         if (CurrentLevel.LevelStatus == Level.eLevelStatus.LEVEL_3D)
@@ -74,10 +81,6 @@ public class Player3D : Actor
             Rigidbody3D.MovePosition(Rigidbody3D.position + velocity);
             //Rigidbody3D.velocity += ;
 
-            if (mActorIndex == 1 && mbMoving == true)
-            {
-                mFmodEventInstances["event:/CoolCat/Cat_Move"].start();
-            }
 
             if (Mathf.Abs(xDelta) >= Mathf.Epsilon)
             {
@@ -100,11 +103,6 @@ public class Player3D : Actor
                 velocity += decomp.normalized * velocity.magnitude;
 
             Rigidbody3D.MovePosition(Rigidbody3D.position + velocity);
-
-            if (mActorIndex == 1 && mbMoving == true)
-            {
-                mFmodEventInstances["event:/CoolCat/Cat_Move"].start();
-            }
 
             if (Input.GetKeyDown(KeyCode.Space) && mJumpCount < MaxJumpCount)
             {
@@ -138,7 +136,6 @@ public class Player3D : Actor
             if (mActorIndex == 1)
             {
                 mbMoving = false;
-                mFmodEventInstances["event:/CoolCat/Cat_Move"].stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
             }
 
             yield return null;
