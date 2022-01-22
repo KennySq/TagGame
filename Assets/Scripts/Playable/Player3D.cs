@@ -110,6 +110,21 @@ public class Player3D : Actor
     }
 
 
+    public void InvokeAnimationTrigger(int index)
+    {
+        switch (index)
+        {
+            case 1:
+                animator.SetTrigger("walk_start");
+                break;
+            case 2:
+                animator.SetTrigger("walk_end");
+                break;
+            case 3:
+                animator.SetTrigger("attack");
+                break;
+        }
+    }
 
     public bool CheckPenetration(in Vector3 offset, out Vector3 decomposition)
     {
@@ -180,10 +195,12 @@ public class Player3D : Actor
         if (isMove)
         {
             animator.SetTrigger("walk_start");
+            TagGame.Photon.PhotonManager.SendAnimationData(new TagGame.Photon.AnimationPacket() { index = 1 });
         }
         else
         {
             animator.SetTrigger("walk_end");
+            TagGame.Photon.PhotonManager.SendAnimationData(new TagGame.Photon.AnimationPacket() { index = 2 });
         }
     }
 
@@ -192,6 +209,7 @@ public class Player3D : Actor
         if (Input.GetKeyDown(KeyCode.Z))
         {
             animator.SetTrigger("attack");
+            TagGame.Photon.PhotonManager.SendAnimationData(new TagGame.Photon.AnimationPacket() { index = 3 });
 
             Vector3 origin = ActorTransform.position;
             Vector3 direction = mFacingDirection * 3.0f;
