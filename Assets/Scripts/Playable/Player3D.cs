@@ -179,6 +179,11 @@ public class Player3D : Actor
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
+            if(CurrentLevel.TagPlayer != gameObject)
+            {
+                return;
+            }
+
             animator.SetTrigger("attack");
 
             Vector3 origin = ActorTransform.position;
@@ -190,8 +195,7 @@ public class Player3D : Actor
 
             if (Physics.Raycast(r, out hitResult, 3.0f))
             {
-                Debug.Log("remote player : " + CurrentLevel.RemotePlayer);
-                Debug.Log("collider : " + hitResult.collider.transform.parent);
+                Debug.Log("Attack Hit.");
                 if (hitResult.collider.transform.parent.gameObject == CurrentLevel.RemotePlayer)
                 {
                     //.

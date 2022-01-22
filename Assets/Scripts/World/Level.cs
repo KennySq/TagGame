@@ -86,6 +86,8 @@ public class Level : MonoBehaviour
         get { return mLocalActor; }
     }
 
+    public GameObject TagPlayer;
+
     // 레벨 상태 스위칭 (2D <-> 3D)
     public void SwitchLevelStatus()
     {
@@ -108,9 +110,31 @@ public class Level : MonoBehaviour
         Actor remoteActor = mRemotePlayer.GetComponent<Actor>();
         remoteActor.SwitchMode(mLevelStatus);
 
-        if (Transition.TryGetTransition(2, out var transition) && LevelStatus == Level.eLevelStatus.LEVEL_2D)
+        if (Transition.TryGetTransition(2, out var transition2d) && LevelStatus == Level.eLevelStatus.LEVEL_2D)
         {
-            transition.Run();
+            if (mLocalActor.ActorIndex == 1)
+            {
+                TagPlayer = LocalPlayer;
+            }
+            else
+            {
+                TagPlayer = RemotePlayer;
+            }
+
+            transition2d.Run();
+        }
+        if (Transition.TryGetTransition(3, out var transition3d) && LevelStatus == Level.eLevelStatus.LEVEL_3D)
+        {
+            if (mLocalActor.ActorIndex == 0)
+            {
+                TagPlayer = LocalPlayer;
+            }
+            else
+            {
+                TagPlayer = RemotePlayer;
+            }
+
+            transition3d.Run();
         }
     }
 

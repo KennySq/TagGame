@@ -42,6 +42,10 @@ public abstract class Actor : MonoBehaviour
 
     [SerializeField]
     protected int mActorIndex = -1;
+    public int ActorIndex
+    {
+        get { return mActorIndex; }
+    }
 
     [Header("Network")]
 
