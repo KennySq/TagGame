@@ -28,12 +28,17 @@ public class Player3D : Actor
     [SerializeField]
     private Animator animator;
 
+    [SerializeField]
+    private AnimationCurve JumpCurve;
+
+
     public float GravityScalar = -2.45f;
     Vector3 Gravity2D;
     Vector3 Gravity3D;
 
     private int mLastFacing = 0;
     private Vector3 mFacingDirection;
+    private CoroutineWrapper wrapper;
 
     // 기본 컨트롤
     protected override void Controller()
@@ -74,13 +79,12 @@ public class Player3D : Actor
 
             if (Input.GetKeyDown(KeyCode.Space) && mJumpCount < MaxJumpCount)
             {
-                Rigidbody3D.velocity += new Vector3(0.0f, 0.0f, JumpPower * Time.deltaTime);
+                wrapper.StartSingleton(Jump(new Vector3(0.0f, 0.0f, JumpPower)));
+                //Rigidbody3D.velocity += new Vector3(0.0f, 0.0f, JumpPower * Time.deltaTime);
 
                 mJumpCount++;
             }
         }
-
-
 
         Attack();
 
@@ -89,7 +93,23 @@ public class Player3D : Actor
         return;
     }
 
-    private bool CheckPenetration(in Vector3 offset, out Vector3 decomposition)
+    IEnumerator Jump(Vector3 jumpVelocity)
+    {
+        float t = 0;
+        while (t < 0.25f)
+        {
+            var delta = jumpVelocity * JumpCurve.Evaluate(t * 4);
+            Rigidbody3D.MovePosition(Rigidbody3D.position + delta);
+            jumpVelocity -= delta;
+
+            t += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+
+
+    public bool CheckPenetration(in Vector3 offset, out Vector3 decomposition)
     {
         decomposition = Vector3.zero;
         foreach (var collider in MapCollider)
@@ -106,6 +126,8 @@ public class Player3D : Actor
     protected override void Awake()
     {
         base.Awake();
+
+        wrapper = new CoroutineWrapper(this);
 
         // Rigidbody, Collision 초기화.
         mRigidbody3D = GetComponentInChildren<Rigidbody>();
@@ -196,23 +218,13 @@ public class Player3D : Actor
         if (CurrentLevel.LevelStatus == Level.eLevelStatus.LEVEL_2D)
         {
             GroundState.CurrentData = CheckGround();
-            //if (Physics.Raycast(rayStart, ActorTransform.position - (Vector3.forward * 10), out var hitResult, 0.2f))
-            //{
-            //    //if target
 
-            //    GameObject gameObject = hitResult.collider.gameObject;
-            //    if(hitResult.distance < (mCapsule3D.radius * 2.0f))
-            //    {
-            //        mJumpCount = 0;
-            //    }
-            //}
-
-            if (GroundState.CurrentData == false)
+            if (GroundState.CurrentData == false && !wrapper.IsPlaying)
                 Rigidbody3D.velocity += Gravity2D * Time.deltaTime;
         }
         else
         {
-            if (GroundState.CurrentData == false)
+            if (GroundState.CurrentData == false && !wrapper.IsPlaying)
                 Rigidbody3D.velocity += Gravity3D * Time.deltaTime;
         }
 

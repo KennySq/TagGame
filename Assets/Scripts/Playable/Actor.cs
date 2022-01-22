@@ -65,6 +65,7 @@ public abstract class Actor : MonoBehaviour
         }
         else // otherWise
         {
+            ReceivePosition.Initialize(this as Player3D);
             ReceivePosition.enabled = true;
         }
     }

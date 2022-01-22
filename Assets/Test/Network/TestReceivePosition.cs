@@ -9,6 +9,8 @@ public class TestReceivePosition : MonoBehaviour
     [SerializeField]
     private Rigidbody rigid;
 
+    private Player3D player;
+
     private Vector3 TargetPosition;
     private Vector3 PredictionPosition;
 
@@ -29,6 +31,11 @@ public class TestReceivePosition : MonoBehaviour
     private const float InterpolationFactor = 1f / 7f;
 
     public float updateRate = 0;
+
+    public void Initialize(in Player3D player)
+    {
+        this.player = player;
+    }
 
     private void OnEnable()
     {
@@ -62,7 +69,13 @@ public class TestReceivePosition : MonoBehaviour
         var lerpPosition = Vector3.LerpUnclamped(TargetPosition, PredictionPosition, ExtrapolationFactor);
         //var lerpRotation = Quaternion.SlerpUnclamped(TargetRotation, PredictionRotation, ExtrapolationFactor);
 
-        rigid.position = Vector3.Lerp(rigid.position, lerpPosition, InterpolationFactor);
+        var nextPosition = Vector3.Lerp(rigid.position, lerpPosition, InterpolationFactor);
+        if (player.CheckPenetration(nextPosition - rigid.position, out var decomp))
+        {
+            nextPosition -= decomp;
+        }
+
+        rigid.position = nextPosition;
         rigid.rotation = Quaternion.Slerp(rigid.rotation, PredictionRotation, InterpolationFactor);
     }
 
