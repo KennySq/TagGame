@@ -151,11 +151,15 @@ public class Level : MonoBehaviour
             Vector3 targetPosition;
 
             targetPosition = distanceVector + CamSetup3D.PositionOffset;
-            Debug.DrawLine(mMainCamera.transform.position, targetPosition, Color.red, 1.0f, false);
 
-            mMainCamera.transform.position = Vector3.Lerp(mMainCamera.transform.position, targetPosition, 0.1f);
-            // mMainCamera.transform.position = new Vector3(mMainCamera.transform.position.x, mMainCamera.transform.position.y, length);
-            mMainCamera.transform.position -= mMainCamera.transform.TransformDirection(mMainCamera.transform.forward * distance);
+            Transform camTransform = mMainCamera.transform;
+
+            camTransform.position = Vector3.Lerp(camTransform.position, targetPosition, 0.1f);
+            //mMainCamera.transform.position = new Vector3(mMainCamera.transform.position.x, mMainCamera.transform.position.y, distance / 2.0f);
+            mMainCamera.transform.position = new Vector3(camTransform.position.x, camTransform.position.y, camTransform.position.z);
+            mMainCamera.transform.position -= camTransform.TransformDirection(Vector3.forward) * (distance / MainCamera.fieldOfView);
+
+            Debug.DrawLine(mMainCamera.transform.position, targetPosition, Color.red, 1.0f, false);
 
             mMainCamera.fieldOfView = Mathf.Lerp(mMainCamera.fieldOfView, mCurrentCameraOption.FOV, 0.1f);
         }

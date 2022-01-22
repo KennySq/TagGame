@@ -82,7 +82,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4638622029668170912
 Transform:
   m_ObjectHideFlags: 0
@@ -91,7 +91,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4778443248269123725}
   m_LocalRotation: {x: 0.3826828, y: -0, z: -0, w: 0.92387986}
-  m_LocalPosition: {x: 0, y: 6.5606585, z: -6.5606613}
+  m_LocalPosition: {x: 0, y: 4.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -234,7 +234,7 @@ MonoBehaviour:
   JumpPower: 40
   MaxJumpCount: 2
   CurrentLevel: {fileID: 0}
-  RigidGameObject: {fileID: 0}
+  RigidGameObject: {fileID: 656224760509870094}
   MainCamera: {fileID: 1493796758204577710}
   mMesh: {fileID: 0}
   mActorIndex: 0
@@ -292,7 +292,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8450334399968841512}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 6.2803297, z: -6.5303307}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
