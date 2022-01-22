@@ -33,6 +33,8 @@ public class TitleStart : MonoBehaviour, IPointerClickHandler
     {
         wrapper = new CoroutineWrapper(this);
 
+        LocalPlayerData.Instance.Initialize();
+        RemotePlayerData.Instance.Initialize();
     }
 
 
@@ -77,6 +79,10 @@ public class TitleStart : MonoBehaviour, IPointerClickHandler
             return;
 
         LocalPlayerData.Instance.characterIndex.CurrentData = Random.Range(0, 2);
+        RemotePlayerData.Instance.characterIndex.CurrentData = LocalPlayerData.Instance.characterIndex.CurrentData == 1 ? 0 : 1;
+
+        Debug.Log($"remote : {RemotePlayerData.Instance.characterIndex.CurrentData}, local : {LocalPlayerData.Instance.characterIndex.CurrentData}");
+
         PhotonManager.SendChacterInitializePacketData(new ChacterInitializePacket()
         {
             index = LocalPlayerData.Instance.characterIndex.CurrentData

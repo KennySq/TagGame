@@ -1,11 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utils;
 
 // Actor 추상 클래스
 // 플레이가 가능한 캐릭터는 이 클래스로부터 상속받습니다.
 public abstract class Actor : MonoBehaviour
 {
+    [SerializeField]
+    public static readonly NotifierClass<Actor> LocalPlayer = new NotifierClass<Actor>();
+
     public float MoveSpeed;
     public float JumpPower;
 
@@ -22,14 +27,9 @@ public abstract class Actor : MonoBehaviour
         get { return mRigidbody3D; }
     }
 
-    protected Rigidbody2D mRigidbody2D;
     public GameObject RigidGameObject;
 
-    protected Camera mMainCamera;
-    public Camera MainCamera
-    {
-        get { return mMainCamera; }
-    }
+    public Camera MainCamera;
 
     [SerializeField]
     protected GameObject mMesh;
@@ -41,9 +41,32 @@ public abstract class Actor : MonoBehaviour
     [SerializeField]
     int mActorIndex = -1;
 
+    [Header("Network")]
+
+    [SerializeField]
+    private TestSendPosition mSendPosition;
+    public TestSendPosition SendPosition { get => mSendPosition; }
+
+    [SerializeField]
+    private TestReceivePosition mReceivePosition;
+    public TestReceivePosition ReceivePosition { get => mReceivePosition; }
+
+    protected bool IsLocalPlayer { get { return LocalPlayer.CurrentData.gameObject == gameObject; } }
+
     protected virtual void Awake()
     {
-        
+        //LocalPlayerIndex is thisCharacter
+        if (mActorIndex == LocalPlayerData.Instance.characterIndex.CurrentData)
+        {
+            SendPosition.enabled = true;
+            LocalPlayer.CurrentData = this;
+        }
+        else // otherWise
+        {
+            ReceivePosition.enabled = true;
+
+            
+        }
     }
 
     // 조작 순수 가상함수

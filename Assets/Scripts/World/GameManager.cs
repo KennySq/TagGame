@@ -22,22 +22,24 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         mLevel = GetComponent<Level>();
+        if (Actor.LocalPlayer.CurrentData == null)
+        {
+            Actor.LocalPlayer.OnDataChangedOnce += OnLocalPlayerInitlaized;
+        }
+        else
+        {
+            OnLocalPlayerInitlaized(Actor.LocalPlayer.CurrentData);
+        }
     }
 
-    void Start()
+    private void OnLocalPlayerInitlaized(Actor obj)
     {
-        // 임시 코드.
-        // 포톤 적용후엔 local-player로 초기화.
-        mLocalPlayer = GameObject.Find("Player3D");
+        mLocalPlayer = obj.gameObject;
+        Actor localActor = obj;
 
-        Actor localActor = mLocalPlayer.GetComponent<Actor>();
-        localActor.CurrentLevel = mLevel;
         mLevel.LocalPlayer = mLocalPlayer;
+        mLevel.MainCamera = localActor.MainCamera;
+        localActor.MainCamera.gameObject.SetActive(true);
     }
 
-
-    void Update()
-    {
-
-    }
 }

@@ -41,11 +41,9 @@ public class Player3D : Actor
 
         // Rigidbody, Collision 초기화.
         mRigidbody3D = GetComponentInChildren<Rigidbody>();
-        mRigidbody2D = GetComponentInChildren<Rigidbody2D>();
-
         mCapsule3D = GetComponentInChildren<CapsuleCollider>();
 
-        mMainCamera = Camera.main;
+        RigidGameObject = transform.Find("Rigid3D").gameObject;
         mMesh = mRigidbody3D.transform.Find("Mesh").gameObject;
 
         ActorTransform = mRigidbody3D.transform;
@@ -58,9 +56,15 @@ public class Player3D : Actor
 
     void Update()
     {
-        Controller();
+        if(IsLocalPlayer == true)
+        {
+            Debug.Log("Local");
+            Controller();
+        }
 
-        if(CurrentLevel.LevelStatus == Level.eLevelStatus.LEVEL_2D)
+        Debug.Log(CurrentLevel);
+
+        if (CurrentLevel.LevelStatus == Level.eLevelStatus.LEVEL_2D)
         {
             RaycastHit hitResult;
 
@@ -70,10 +74,8 @@ public class Player3D : Actor
 
             if (Physics.Raycast(rayStart, ActorTransform.position - (Vector3.forward * 10), out hitResult, Mathf.Infinity))
             {
-                Debug.Log(hitResult.collider.name);
-
                 GameObject gameObject = hitResult.collider.gameObject;
-                if(hitResult.distance < (mCapsule3D.radius * 2.0f) && )
+                if(hitResult.distance < (mCapsule3D.radius * 2.0f))
                 {
                     mJumpCount = 0;
                 }
