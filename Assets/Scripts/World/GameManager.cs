@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
         localActor.CurrentLevel = mLevel;
         mLevel.LocalPlayer = mLocalPlayer;
         mLevel.MainCamera = localActor.MainCamera;
-        localActor.MainCamera.enabled = true;
+        localActor.MainCamera.gameObject.SetActive(true);
     }
 
 }
