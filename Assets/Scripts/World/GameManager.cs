@@ -15,12 +15,19 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private List<GameObject> mPlayers;
 
+    private KeyValuePair<GameObject, GameObject> mCharacterPair;
+
     private GameObject mLocalPlayer;
+    private GameObject mRemotePlayer;
 
     private PhotonManager mNetManager;
 
     private void Awake()
     {
+        mPlayers.AddRange(GameObject.FindGameObjectsWithTag("Player"));
+
+        mCharacterPair = new KeyValuePair<GameObject, GameObject>(mPlayers[0], mPlayers[1]);
+
         mLevel = GetComponent<Level>();
         if (Actor.LocalPlayer.CurrentData == null)
         {
@@ -40,6 +47,18 @@ public class GameManager : MonoBehaviour
         mLevel.LocalPlayer = mLocalPlayer;
         mLevel.MainCamera = localActor.MainCamera;
         localActor.MainCamera.gameObject.SetActive(true);
+
+        if(mCharacterPair.Key == mLocalPlayer)
+        {
+            mRemotePlayer = mCharacterPair.Value;
+        }
+        else
+        {
+            mRemotePlayer = mCharacterPair.Key;
+        }
+
+        mLevel.RemotePlayer = mRemotePlayer;
+
     }
 
 }
