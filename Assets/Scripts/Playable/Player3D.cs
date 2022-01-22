@@ -1,11 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+using System.Linq;
 using Utils;
 
 public class Player3D : Actor
 {
     private readonly Notifier<bool> inputMovement = new Notifier<bool>();
+    private readonly Notifier<bool> GroundState = new Notifier<bool>();
+
+
+
+    [SerializeField]
+    private Transform Root;
+
+    [SerializeField]
+    private List<Collider> MapCollider;
+
 
     private CapsuleCollider mCapsule3D;
     public CapsuleCollider Capsule3D
@@ -29,11 +41,17 @@ public class Player3D : Actor
         float yDelta = Input.GetAxis("Vertical");
         float xDelta = Input.GetAxis("Horizontal");
 
-        if(CurrentLevel.LevelStatus == Level.eLevelStatus.LEVEL_3D)
+        if (CurrentLevel.LevelStatus == Level.eLevelStatus.LEVEL_3D)
         {
-            Rigidbody3D.velocity += (new Vector3(xDelta * MoveSpeed * Time.deltaTime, 0.0f, yDelta * MoveSpeed * Time.deltaTime));
+            var velocity = (new Vector3(xDelta * MoveSpeed * Time.deltaTime, 0.0f, yDelta * MoveSpeed * Time.deltaTime));
 
-            if(Mathf.Abs(xDelta) >= Mathf.Epsilon)
+            if (CheckPenetration(Vector3.ClampMagnitude(velocity, 0.1f), out var decomp))
+                velocity += decomp.normalized * velocity.magnitude;
+
+            Rigidbody3D.MovePosition(Rigidbody3D.position + velocity);
+            //Rigidbody3D.velocity += ;
+
+            if (Mathf.Abs(xDelta) >= Mathf.Epsilon)
             {
                 mFacingDirection = new Vector3(Mathf.Sign(xDelta), 0, 0);
 
@@ -47,9 +65,14 @@ public class Player3D : Actor
         {
             mLastFacing = (int)Mathf.Sign(xDelta);
 
-            Rigidbody3D.velocity += new Vector3(xDelta * MoveSpeed * Time.deltaTime, 0.0f, 0.0f);
+            var velocity = new Vector3(xDelta * MoveSpeed * Time.deltaTime, 0.0f, 0.0f);
 
-            if(Input.GetKeyDown(KeyCode.Space) && mJumpCount < MaxJumpCount)
+            if (CheckPenetration(Vector3.ClampMagnitude(velocity, 0.1f), out var decomp))
+                velocity += decomp.normalized * velocity.magnitude;
+
+            Rigidbody3D.MovePosition(Rigidbody3D.position + velocity);
+
+            if (Input.GetKeyDown(KeyCode.Space) && mJumpCount < MaxJumpCount)
             {
                 Rigidbody3D.velocity += new Vector3(0.0f, 0.0f, JumpPower * Time.deltaTime);
 
@@ -57,13 +80,27 @@ public class Player3D : Actor
             }
         }
 
-        
+
 
         Attack();
 
         inputMovement.CurrentData = new Vector2(xDelta, yDelta).magnitude > 0.2f;
 
         return;
+    }
+
+    private bool CheckPenetration(in Vector3 offset, out Vector3 decomposition)
+    {
+        decomposition = Vector3.zero;
+        foreach (var collider in MapCollider)
+        {
+            if (collider.ComputePenetration(Capsule3D, Capsule3D.transform.position + offset, out var dir, out var dis))
+            {
+                decomposition += dir * dis;
+            }
+        }
+
+        return !Mathf.Approximately(decomposition.magnitude, 0);
     }
 
     protected override void Awake()
@@ -77,11 +114,26 @@ public class Player3D : Actor
         RigidGameObject = transform.Find("Rigid3D").gameObject;
         mMesh = mRigidbody3D.transform.Find("Mesh").gameObject;
 
+        MapCollider = Root.GetComponentsInChildren<Collider>(false).ToList();
+
         ActorTransform = mRigidbody3D.transform;
         inputMovement.OnDataChanged += Movement_OnDataChanged;
+        GroundState.OnDataChanged += GroundState_OnDataChanged;
 
         Gravity2D = new Vector3(0.0f, 0.0f, GravityScalar);
         Gravity3D = new Vector3(0.0f, GravityScalar, 0.0f);
+    }
+
+    private void GroundState_OnDataChanged(bool isGrounded)
+    {
+        if (isGrounded)
+        {
+            mJumpCount = 0;
+        }
+        else
+        {
+
+        }
     }
 
     private void Movement_OnDataChanged(bool isMove)
@@ -101,7 +153,7 @@ public class Player3D : Actor
 
     private void Attack()
     {
-        if(Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             animator.SetTrigger("attack");
 
@@ -128,13 +180,13 @@ public class Player3D : Actor
 
     void Update()
     {
-        if(IsLocalPlayer == true)
+        if (IsLocalPlayer == true)
         {
             Debug.Log("Local");
             Controller();
         }
 
-        if(mActorIndex == 1)
+        if (mActorIndex == 1)
         {
             mMesh.transform.LookAt(MainCamera.transform);
         }
@@ -143,28 +195,46 @@ public class Player3D : Actor
 
         if (CurrentLevel.LevelStatus == Level.eLevelStatus.LEVEL_2D)
         {
-            RaycastHit hitResult;
+            GroundState.CurrentData = CheckGround();
+            //if (Physics.Raycast(rayStart, ActorTransform.position - (Vector3.forward * 10), out var hitResult, 0.2f))
+            //{
+            //    //if target
 
-            Vector3 rayStart = new Vector3(ActorTransform.position.x, ActorTransform.position.y, ActorTransform.position.z - (Capsule3D.height / 2.0f));
-            Ray r = new Ray(ActorTransform.position, -Vector3.forward + ActorTransform.position);
-            Debug.DrawLine(rayStart, ActorTransform.position - (Vector3.forward * 10), Color.red, 2.0f, false);
+            //    GameObject gameObject = hitResult.collider.gameObject;
+            //    if(hitResult.distance < (mCapsule3D.radius * 2.0f))
+            //    {
+            //        mJumpCount = 0;
+            //    }
+            //}
 
-            if (Physics.Raycast(rayStart, ActorTransform.position - (Vector3.forward * 10), out hitResult, Mathf.Infinity))
-            {
-                GameObject gameObject = hitResult.collider.gameObject;
-                if(hitResult.distance < (mCapsule3D.radius * 2.0f))
-                {
-                    mJumpCount = 0;
-                }
-            }
-
-            Rigidbody3D.velocity += Gravity2D * Time.deltaTime;
+            if (GroundState.CurrentData == false)
+                Rigidbody3D.velocity += Gravity2D * Time.deltaTime;
         }
         else
         {
-            Rigidbody3D.velocity += Gravity3D * Time.deltaTime;
-
+            if (GroundState.CurrentData == false)
+                Rigidbody3D.velocity += Gravity3D * Time.deltaTime;
         }
 
+    }
+
+    private bool CheckGround()
+    {
+        Vector3 rayStart = new Vector3(ActorTransform.position.x, ActorTransform.position.y, ActorTransform.position.z - (Capsule3D.height / 2.0f) + 0.1f);
+        Debug.DrawLine(rayStart, ActorTransform.position - (Vector3.forward * 10), Color.red, 2.0f, false);
+
+        var hits = Physics.RaycastAll(rayStart, Vector3.back, 0.2f);
+        if (hits != null && hits.Length > 0)
+        {
+            foreach (var hit in hits)
+            {
+                if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }
