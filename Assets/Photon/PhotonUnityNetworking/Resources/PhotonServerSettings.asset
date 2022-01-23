@@ -41,6 +41,7 @@ MonoBehaviour:
   - ReceivePlayerStatusPacketData
   - ReceiveTagPacketData
   - ReceiveAnimationData
+  - ReceivePlatformPacketData
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

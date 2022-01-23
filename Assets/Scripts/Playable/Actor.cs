@@ -24,7 +24,7 @@ public abstract class Actor : MonoBehaviour
     protected Transform ActorTransform;
 
     protected Rigidbody mRigidbody3D;
-    protected Rigidbody Rigidbody3D
+    public Rigidbody Rigidbody3D
     {
         get { return mRigidbody3D; }
     }
@@ -59,7 +59,7 @@ public abstract class Actor : MonoBehaviour
     private TestReceivePosition mReceivePosition;
     public TestReceivePosition ReceivePosition { get => mReceivePosition; }
 
-    protected bool IsLocalPlayer { get { return LocalPlayer.CurrentData.gameObject == gameObject; } }
+    public bool IsLocalPlayer { get { return LocalPlayer.CurrentData.gameObject == gameObject; } }
 
     protected virtual void Awake()
     {

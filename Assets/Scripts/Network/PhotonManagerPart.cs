@@ -77,6 +77,12 @@ namespace TagGame.Photon
         public Vector3 contactDirection;
     }
 
+    [Serializable]
+    public class PlatformPacket : Packet
+    {
+        public List<float> heights;
+    }
+
 
 
     public partial class PhotonManager : PhotonSingleton<PhotonManager>
@@ -87,6 +93,7 @@ namespace TagGame.Photon
         public event Action<ChacterInitializePacket> OnChacterInitializeMessageReceive;
         public event Action<PlayerStatusPacket> OnPlayerStatusMessageReceive;
         public event Action<TagPacket> OnTagReceive;
+        public event Action<PlatformPacket> OnPlatformPacketReceive;
 
         private const RpcTarget SendTarget = RpcTarget.Others;
 
@@ -208,6 +215,21 @@ namespace TagGame.Photon
         {
             var packet = DeserializeData<TagPacket>(data);
             OnTagReceive?.Invoke(packet);
+        }
+
+        public static void SendPlatformPacketData(in PlatformPacket data)
+        {
+            if (!isValid)
+                return;
+
+            Instance.photonView.RPC("ReceivePlatformPacketData", RpcTarget.All, SerializeData(data));
+        }
+
+        [PunRPC]
+        public void ReceivePlatformPacketData(string data)
+        {
+            var packet = DeserializeData<PlatformPacket>(data);
+            OnPlatformPacketReceive?.Invoke(packet);
         }
     }
 
