@@ -1314,6 +1314,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5065277595120603807, guid: 2176817ffd3080d459032f984661c97b,
         type: 3}
+      propertyPath: Root
+      value: 
+      objectReference: {fileID: 2061592633}
+    - target: {fileID: 5065277595120603807, guid: 2176817ffd3080d459032f984661c97b,
+        type: 3}
       propertyPath: MoveSpeed
       value: 2.5
       objectReference: {fileID: 0}
@@ -1326,6 +1331,41 @@ PrefabInstance:
         type: 3}
       propertyPath: GravityScalar
       value: -0.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 5065277595120603807, guid: 2176817ffd3080d459032f984661c97b,
+        type: 3}
+      propertyPath: JumpCurve.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5065277595120603807, guid: 2176817ffd3080d459032f984661c97b,
+        type: 3}
+      propertyPath: JumpCurve.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5065277595120603807, guid: 2176817ffd3080d459032f984661c97b,
+        type: 3}
+      propertyPath: JumpCurve.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5065277595120603807, guid: 2176817ffd3080d459032f984661c97b,
+        type: 3}
+      propertyPath: JumpCurve.m_Curve.Array.data[1].inSlope
+      value: 18.380304
+      objectReference: {fileID: 0}
+    - target: {fileID: 5065277595120603807, guid: 2176817ffd3080d459032f984661c97b,
+        type: 3}
+      propertyPath: JumpCurve.m_Curve.Array.data[1].inWeight
+      value: 0.053523183
+      objectReference: {fileID: 0}
+    - target: {fileID: 5065277595120603807, guid: 2176817ffd3080d459032f984661c97b,
+        type: 3}
+      propertyPath: JumpCurve.m_Curve.Array.data[1].outSlope
+      value: 18.380304
+      objectReference: {fileID: 0}
+    - target: {fileID: 5065277595120603807, guid: 2176817ffd3080d459032f984661c97b,
+        type: 3}
+      propertyPath: JumpCurve.m_Curve.Array.data[1].weightedMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9061037589021861775, guid: 2176817ffd3080d459032f984661c97b,
         type: 3}
@@ -1588,6 +1628,7 @@ MonoBehaviour:
   SwitchTime: 5
   TimerText: {fileID: 23045324}
   mLocalPlayer: {fileID: 0}
+  TagPlayer: {fileID: 0}
 --- !u!1 &1016957381
 GameObject:
   m_ObjectHideFlags: 0
@@ -3016,6 +3057,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1549493004}
     m_Modifications:
     - target: {fileID: 1429792535, guid: 8f0e51ac2a2bad642a6527c6ad93c033, type: 3}
+      propertyPath: Root
+      value: 
+      objectReference: {fileID: 2061592633}
+    - target: {fileID: 1429792535, guid: 8f0e51ac2a2bad642a6527c6ad93c033, type: 3}
       propertyPath: animator
       value: 
       objectReference: {fileID: 817590376}
@@ -3034,6 +3079,34 @@ PrefabInstance:
     - target: {fileID: 1429792535, guid: 8f0e51ac2a2bad642a6527c6ad93c033, type: 3}
       propertyPath: GravityScalar
       value: -0.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 1429792535, guid: 8f0e51ac2a2bad642a6527c6ad93c033, type: 3}
+      propertyPath: JumpCurve.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1429792535, guid: 8f0e51ac2a2bad642a6527c6ad93c033, type: 3}
+      propertyPath: JumpCurve.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1429792535, guid: 8f0e51ac2a2bad642a6527c6ad93c033, type: 3}
+      propertyPath: JumpCurve.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1429792535, guid: 8f0e51ac2a2bad642a6527c6ad93c033, type: 3}
+      propertyPath: JumpCurve.m_Curve.Array.data[1].inSlope
+      value: 18.380304
+      objectReference: {fileID: 0}
+    - target: {fileID: 1429792535, guid: 8f0e51ac2a2bad642a6527c6ad93c033, type: 3}
+      propertyPath: JumpCurve.m_Curve.Array.data[1].inWeight
+      value: 0.053523183
+      objectReference: {fileID: 0}
+    - target: {fileID: 1429792535, guid: 8f0e51ac2a2bad642a6527c6ad93c033, type: 3}
+      propertyPath: JumpCurve.m_Curve.Array.data[1].outSlope
+      value: 18.380304
+      objectReference: {fileID: 0}
+    - target: {fileID: 1429792535, guid: 8f0e51ac2a2bad642a6527c6ad93c033, type: 3}
+      propertyPath: JumpCurve.m_Curve.Array.data[1].weightedMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5272099672885260940, guid: 8f0e51ac2a2bad642a6527c6ad93c033,
         type: 3}
