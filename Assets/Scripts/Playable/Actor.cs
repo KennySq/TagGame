@@ -61,6 +61,11 @@ public abstract class Actor : MonoBehaviour
 
     public bool IsLocalPlayer { get { return LocalPlayer.CurrentData.gameObject == gameObject; } }
 
+    protected Dictionary<string, FMOD.Studio.EventInstance> mFmodEventInstances = new Dictionary<string, FMOD.Studio.EventInstance>();
+    protected List<string> mFmodEvents = new List<string>();
+
+    protected float mMasterVolume = 0.1f;
+
     protected virtual void Awake()
     {
         //LocalPlayerIndex is thisCharacter
@@ -86,12 +91,25 @@ public abstract class Actor : MonoBehaviour
     {
         if(status == Level.eLevelStatus.LEVEL_2D)
         {
+            FMOD.Studio.EventInstance switchSound = mFmodEventInstances["event:/SFX/SwitchToCat"];
+            switchSound.setVolume(0.1f);
+
+            switchSound.start();
             Rigidbody3D.rotation = Rotation2D;
+
+
         }
         else
         {
+            FMOD.Studio.EventInstance switchSound = mFmodEventInstances["event:/SFX/SwitchToDog"];
+            switchSound.setVolume(0.1f);
+
+            switchSound.start();
+
             Rigidbody3D.rotation = Quaternion.identity;
         }
+
+
 
     }
 }

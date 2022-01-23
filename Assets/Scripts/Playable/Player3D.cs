@@ -42,8 +42,6 @@ public class Player3D : Actor
     private Vector3 mFacingDirection;
     private CoroutineWrapper wrapper;
 
-    Dictionary<string, FMOD.Studio.EventInstance> mFmodEventInstances = new Dictionary<string, FMOD.Studio.EventInstance>();
-    List<string> mFmodEvents = new List<string>();
 
 
     // 기본 컨트롤
@@ -68,7 +66,6 @@ public class Player3D : Actor
             {
                 FMOD.Studio.EventInstance inst = mFmodEventInstances["event:/CoolCat/Cat_Move"];
                 inst.start();
-
             }
 
             mbMoving = true;
@@ -82,8 +79,6 @@ public class Player3D : Actor
                 velocity += decomp.normalized * velocity.magnitude;
 
             Rigidbody3D.MovePosition(Rigidbody3D.position + velocity);
-            //Rigidbody3D.velocity += ;
-
 
             if (Mathf.Abs(xDelta) >= Mathf.Epsilon)
             {
@@ -118,6 +113,24 @@ public class Player3D : Actor
 
         Attack();
 
+        if(Input.GetKeyDown(KeyCode.X))
+        {
+            if(ActorIndex == 0)
+            {
+                FMOD.Studio.EventInstance dogTaunt = mFmodEventInstances["event:/HotDog/Dog_Taunt"];
+
+                dogTaunt.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(this.transform));
+                dogTaunt.start();
+            }
+            else
+            {
+                FMOD.Studio.EventInstance catTaunt = mFmodEventInstances["event:/CoolCat/Cat_Taunt"];
+
+                catTaunt.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(this.transform));
+                catTaunt.start();
+            }
+        }
+
         LookAt(new Vector2(xDelta, yDelta));
 
         inputMovement.CurrentData = new Vector2(xDelta, yDelta).magnitude > 0.2f;
@@ -128,6 +141,12 @@ public class Player3D : Actor
     IEnumerator Jump(Vector3 jumpVelocity)
     {
         float t = 0;
+
+        FMOD.Studio.EventInstance jumpSound = mFmodEventInstances["event:/CoolCat/Cat_Jump"];
+        jumpSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(this.transform));
+
+        jumpSound.start();
+
         while (t < 0.25f)
         {
             var delta = jumpVelocity * JumpCurve.Evaluate(t * 4);
@@ -209,6 +228,9 @@ public class Player3D : Actor
         mFmodEvents.Add("event:/HotDog/Dog_Jump");
         mFmodEvents.Add("event:/HotDog/Dog_Taunt");
 
+        mFmodEvents.Add("event:/SFX/SwitchToCat");
+        mFmodEvents.Add("event:/SFX/SwitchToDog");
+
         wrapper = new CoroutineWrapper(this);
 
         // Rigidbody, Collision 초기화.
@@ -236,8 +258,22 @@ public class Player3D : Actor
         {
             FMOD.Studio.EventInstance inst = FMODUnity.RuntimeManager.CreateInstance(e);
             mFmodEventInstances.Add(e, inst);
-            Debug.Log(CurrentLevel.RemotePlayer);
+            inst.setVolume(mMasterVolume);
         }
+
+        if (IsLocalPlayer)
+        {
+            FMOD.Studio.EventInstance mainMusic = mFmodEventInstances["event:/BGM/Main"];
+            mainMusic.start();
+        }
+
+        if (mActorIndex == 0)
+        {
+            FMOD.Studio.EventInstance dogIdleSound = mFmodEventInstances["event:/HotDog/Dog_Idle"];
+            dogIdleSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(this.transform));
+            dogIdleSound.start();
+        }
+
     }
 
 
@@ -289,6 +325,17 @@ public class Player3D : Actor
                 return;
             }
 
+            if(ActorIndex == 0)
+            {
+                FMOD.Studio.EventInstance dogAttackSound = mFmodEventInstances["event:/HotDog/Dog_Attack"];
+                dogAttackSound.start();
+            }
+            else
+            {
+                FMOD.Studio.EventInstance catAttackSound = mFmodEventInstances["event:/CoolCat/Cat_Attack"];
+                catAttackSound.start();
+            }
+
             animator.SetTrigger("attack");
             TagGame.Photon.PhotonManager.SendAnimationData(new TagGame.Photon.AnimationPacket() { index = 3 });
 
@@ -301,9 +348,32 @@ public class Player3D : Actor
 
             if (Physics.Raycast(r, out hitResult, 3.0f))
             {
-                Debug.Log("Attack Hit.");
                 if (hitResult.collider.transform.parent.gameObject == CurrentLevel.RemotePlayer)
                 {
+                    Debug.Log("Attack Hit.");
+
+                    if (ActorIndex == 1)
+                    {
+                        FMOD.Studio.EventInstance catAttackSound = mFmodEventInstances["event:/CoolCat/Cat_Hit"];
+                        FMOD.Studio.EventInstance dogHurtSound = mFmodEventInstances["event:/HotDog/Dog_Hurt"];
+
+                        dogHurtSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(CurrentLevel.RemotePlayer.transform));
+                        catAttackSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(this.transform));
+                        dogHurtSound.start();
+                        catAttackSound.start();
+
+                    }
+                    else
+                    {
+                        FMOD.Studio.EventInstance dogAttackSound = mFmodEventInstances["event:/HotDog/Dog_Hit"];
+                        FMOD.Studio.EventInstance catHurtSound = mFmodEventInstances["event:/CoolCat/Cat_Hurt"];
+
+                        catHurtSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(CurrentLevel.RemotePlayer.transform));
+                        dogAttackSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(this.transform));
+                        dogAttackSound.start();
+                        catHurtSound.start();
+                    }
+
                     //.call Instance_OnTagReceive
                     TagGame.Photon.PhotonManager.SendTagPacketData(new TagGame.Photon.TagPacket()
                     {
