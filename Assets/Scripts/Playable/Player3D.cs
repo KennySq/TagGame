@@ -18,6 +18,8 @@ public class Player3D : Actor
     [SerializeField]
     private List<Collider> MapCollider;
 
+    [SerializeField]
+    private PlatformMovement platforms;
 
     private CapsuleCollider mCapsule3D;
     public CapsuleCollider Capsule3D
@@ -164,6 +166,14 @@ public class Player3D : Actor
     {
         decomposition = Vector3.zero;
         foreach (var collider in MapCollider)
+        {
+            if (collider.ComputePenetration(Capsule3D, Capsule3D.transform.position + offset, out var dir, out var dis))
+            {
+                decomposition += dir * dis;
+            }
+        }
+
+        foreach(var collider in platforms.colliders)
         {
             if (collider.ComputePenetration(Capsule3D, Capsule3D.transform.position + offset, out var dir, out var dis))
             {

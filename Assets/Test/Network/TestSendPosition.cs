@@ -8,7 +8,7 @@ public class TestSendPosition : MonoBehaviour
 {
     [SerializeField]
     private Rigidbody rigid;
-    private Actor Owner;
+    public Actor Owner { get; private set; }
 
     //dummys;
     private Vector3 CurrentVelocity;
