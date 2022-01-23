@@ -49,6 +49,7 @@ public class Level : MonoBehaviour
     public float SwitchTime = 60.0f;
 
     public TextMeshProUGUI TimerText;
+    public TextMeshProUGUI WinnerText;
     
     // pre-set 카메라 옵션
     CameraSetup CamSetup2D = new CameraSetup(new Vector3(0, 30.0f, 0.0f), Quaternion.Euler(90, 0, 0), 0.0f);
@@ -87,6 +88,9 @@ public class Level : MonoBehaviour
     }
 
     public GameObject TagPlayer;
+
+    public float MatchTimer = 0.0f;
+    public float SuddenDeathTime;
 
     // 레벨 상태 스위칭 (2D <-> 3D)
     public void SwitchLevelStatus()
@@ -153,6 +157,7 @@ public class Level : MonoBehaviour
         }
 
         mSwitchTimer += Time.deltaTime;
+        MatchTimer += Time.deltaTime;
 
         TimerText.text = (SwitchTime - mSwitchTimer).ToString("N2");
 

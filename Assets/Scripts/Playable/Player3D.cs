@@ -383,6 +383,18 @@ public class Player3D : Actor
                         contactDirection = direction
                     });
 
+                    if(CurrentLevel.MatchTimer >= CurrentLevel.SuddenDeathTime)
+                    {
+                        if(this.gameObject.name == "Player2D")
+                        {
+                            CurrentLevel.WinnerText.text = "Cat Wins!";
+                        }
+                        else if (this.gameObject.name == "Player3D")
+                        {
+                            CurrentLevel.WinnerText.text = "Dog Wins!";
+                        }
+                    }
+
                     Debug.Log("SendTag");
                     //Rigidbody RemoteRigid = CurrentLevel.RemotePlayer.GetComponentInChildren<Rigidbody>();
                     //RemoteRigid.AddExplosionForce(10.0f, direction, 1.0f);

@@ -92,7 +92,7 @@ public abstract class Actor : MonoBehaviour
         if(status == Level.eLevelStatus.LEVEL_2D)
         {
             FMOD.Studio.EventInstance switchSound = mFmodEventInstances["event:/SFX/SwitchToCat"];
-            switchSound.setVolume(0.1f);
+
 
             switchSound.start();
             Rigidbody3D.rotation = Rotation2D;
@@ -102,7 +102,6 @@ public abstract class Actor : MonoBehaviour
         else
         {
             FMOD.Studio.EventInstance switchSound = mFmodEventInstances["event:/SFX/SwitchToDog"];
-            switchSound.setVolume(0.1f);
 
             switchSound.start();
 
