@@ -52,7 +52,7 @@ public class Level : MonoBehaviour
     
     // pre-set 카메라 옵션
     CameraSetup CamSetup2D = new CameraSetup(new Vector3(0, 30.0f, 0.0f), Quaternion.Euler(90, 0, 0), 0.0f);
-    CameraSetup CamSetup3D = new CameraSetup(new Vector3(0, 4.5f, -10.0f), Quaternion.Euler(45, 0, 0), 60.0f);
+    CameraSetup CamSetup3D = new CameraSetup(new Vector3(0, 8.5f, -8.5f), Quaternion.Euler(45, 0, 0), 60.0f);
 
 
 
@@ -169,7 +169,7 @@ public class Level : MonoBehaviour
         {
             Vector3 targetPosition;
 
-            targetPosition = distanceVector + CamSetup3D.PositionOffset;
+            targetPosition = localPosition + CamSetup3D.PositionOffset;
 
             Transform camTransform = mMainCamera.transform;
 
