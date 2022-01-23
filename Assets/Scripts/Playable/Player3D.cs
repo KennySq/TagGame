@@ -64,7 +64,9 @@ public class Player3D : Actor
         {
             if (mActorIndex == 1 && mbMoving == false)
             {
-                mFmodEventInstances["event:/CoolCat/Cat_Move"].start();
+                FMOD.Studio.EventInstance inst = mFmodEventInstances["event:/CoolCat/Cat_Move"];
+                inst.start();
+
             }
 
             mbMoving = true;
@@ -226,15 +228,6 @@ public class Player3D : Actor
             FMOD.Studio.EventInstance inst = FMODUnity.RuntimeManager.CreateInstance(e);
             mFmodEventInstances.Add(e, inst);
             Debug.Log(CurrentLevel.RemotePlayer);
-
-            if (CurrentLevel.LocalActor.gameObject == gameObject)
-            {
-                inst.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(this.transform));
-            }
-            else
-            {
-                inst.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(CurrentLevel.RemotePlayer.transform));
-            }
         }
     }
 
@@ -350,7 +343,18 @@ public class Player3D : Actor
             mMesh.transform.LookAt(MainCamera.transform);
         }
 
-        Debug.Log(CurrentLevel);
+        if (CurrentLevel.LocalActor.gameObject == gameObject)
+        {
+            FMOD.Studio.EventInstance moveSound = mFmodEventInstances["event:/CoolCat/Cat_Move"];
+
+            moveSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(this.transform));
+        }
+        else
+        {
+            FMOD.Studio.EventInstance moveSound = mFmodEventInstances["event:/CoolCat/Cat_Move"];
+            moveSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(CurrentLevel.RemotePlayer.transform));
+        }
+
 
         if (IsLocalPlayer == false)
         {

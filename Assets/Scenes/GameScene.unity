@@ -2691,6 +2691,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1226960878}
   m_CullTransparentMesh: 1
+--- !u!95 &1237797270 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1881446966, guid: 8f0e51ac2a2bad642a6527c6ad93c033,
+    type: 3}
+  m_PrefabInstance: {fileID: 1684688618}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1251034226
 GameObject:
   m_ObjectHideFlags: 0
@@ -6159,6 +6165,10 @@ PrefabInstance:
       propertyPath: Root
       value: 
       objectReference: {fileID: 2061592633}
+    - target: {fileID: 1429792535, guid: 8f0e51ac2a2bad642a6527c6ad93c033, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1237797270}
     - target: {fileID: 1429792535, guid: 8f0e51ac2a2bad642a6527c6ad93c033, type: 3}
       propertyPath: JumpPower
       value: 10
