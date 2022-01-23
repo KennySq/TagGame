@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Rendering;
 
 // 현재 레벨을 관리하는 클래스
 // 카메라, 2D,3D 상태 관리
@@ -95,6 +96,12 @@ public class Level : MonoBehaviour
     public Transform Field3D;
     public Transform Field2D;
 
+    public GameObject[] Elevator2D;
+    public GameObject[] Elevator3D;
+
+    public Volume mPP2D;
+    public Volume mPP3D;
+
     // 레벨 상태 스위칭 (2D <-> 3D)
     public void SwitchLevelStatus()
     {
@@ -104,12 +111,16 @@ public class Level : MonoBehaviour
             mCurrentCameraOption = CamSetup3D;
             MainCamera.orthographic = false;
 
-            Debug.Log("Level 3D");
-
             Field2D.gameObject.SetActive(false);
             Field3D.gameObject.SetActive(true);
 
+            mPP3D.weight = 1.0f;
 
+            for (int i = 0; i < 4; i++) 
+            {
+                Elevator2D[i].SetActive(false);
+                Elevator3D[i].SetActive(true);
+            }
 
             (LocalActor as Player3D).Root = Field3D;
             (mRemotePlayer.GetComponent<Player3D>()).Root = Field3D;
@@ -124,6 +135,13 @@ public class Level : MonoBehaviour
             Field2D.gameObject.SetActive(true);
             Field3D.gameObject.SetActive(false);
 
+            mPP3D.weight = 0.0f;
+
+            for (int i = 0; i < 4; i++)
+            {
+                Elevator2D[i].SetActive(true);
+                Elevator3D[i].SetActive(false);
+            }
             (LocalActor as Player3D).Root = Field2D;
             (mRemotePlayer.GetComponent<Player3D>()).Root = Field2D;
         }
@@ -166,7 +184,6 @@ public class Level : MonoBehaviour
     private void Awake()
     {
         mCurrentCameraOption = CamSetup2D;
-
     }
 
     private void Update()
