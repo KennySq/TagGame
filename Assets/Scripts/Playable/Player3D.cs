@@ -320,15 +320,20 @@ public class Player3D : Actor
         }
     }
 
-    private void LookAt(in Vector2 input)
+    private void LookAt(Vector2 input)
     {
         if (input.magnitude < 0.2)
             return;
 
-        if (CurrentLevel.LevelStatus == Level.eLevelStatus.LEVEL_2D) // not working?
-            input.Set(input.x, 0);
+        Vector3 Upward = CurrentLevel.LevelStatus == Level.eLevelStatus.LEVEL_2D ? Vector3.forward : Vector3.up;
 
-        var targetRotation = Quaternion.Slerp(Rigidbody3D.rotation, Quaternion.LookRotation(input.ToVector3FromXZ()), 0.25f);
+        if (CurrentLevel.LevelStatus == Level.eLevelStatus.LEVEL_2D) // not working?
+            input = new Vector2(input.x, 0);
+
+        if (Mathf.Approximately(input.magnitude, 0))
+            return;
+
+        var targetRotation = Quaternion.Slerp(Rigidbody3D.rotation, Quaternion.LookRotation(input.ToVector3FromXZ(), Upward), 0.25f);
         Rigidbody3D.MoveRotation(targetRotation);
     }
 
