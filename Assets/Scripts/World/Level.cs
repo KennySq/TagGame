@@ -92,6 +92,9 @@ public class Level : MonoBehaviour
     public float MatchTimer = 0.0f;
     public float SuddenDeathTime;
 
+    public Transform Field3D;
+    public Transform Field2D;
+
     // 레벨 상태 스위칭 (2D <-> 3D)
     public void SwitchLevelStatus()
     {
@@ -100,12 +103,29 @@ public class Level : MonoBehaviour
             mLevelStatus = eLevelStatus.LEVEL_3D;
             mCurrentCameraOption = CamSetup3D;
             MainCamera.orthographic = false;
+
+            Debug.Log("Level 3D");
+
+            Field2D.gameObject.SetActive(false);
+            Field3D.gameObject.SetActive(true);
+
+
+
+            (LocalActor as Player3D).Root = Field3D;
+            (mRemotePlayer.GetComponent<Player3D>()).Root = Field3D;
+            
         }
         else
         {
             mLevelStatus = eLevelStatus.LEVEL_2D;
             mCurrentCameraOption = CamSetup2D;
             MainCamera.orthographic = true;
+
+            Field2D.gameObject.SetActive(true);
+            Field3D.gameObject.SetActive(false);
+
+            (LocalActor as Player3D).Root = Field2D;
+            (mRemotePlayer.GetComponent<Player3D>()).Root = Field2D;
         }
 
         Actor localActor = mLocalPlayer.GetComponent<Actor>();
@@ -140,6 +160,7 @@ public class Level : MonoBehaviour
 
             transition3d.Run();
         }
+
     }
 
     private void Awake()

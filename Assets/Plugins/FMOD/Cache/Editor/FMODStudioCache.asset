@@ -1,5 +1,279 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7832460032369023915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/HotDog/Dog_Attack
+  m_EditorClassIdentifier: 
+  Path: event:/HotDog/Dog_Attack
+  guid: a1dc056b4c431d4a9b7b9bff178d9484
+  Banks:
+  - {fileID: 1167348659964556846}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 10
+  MaxDistance: 50
+  Length: 533
+--- !u!114 &-7286051650239946487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/HotDog/Dog_Hit
+  m_EditorClassIdentifier: 
+  Path: event:/HotDog/Dog_Hit
+  guid: fc6f79e0d9a5d74882fe40657117a496
+  Banks:
+  - {fileID: 1167348659964556846}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 10
+  MaxDistance: 50
+  Length: 696
+--- !u!114 &-6502114553303254942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/SwitchToCat
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/SwitchToCat
+  guid: 902abbb47d390e46a462cd42383badbe
+  Banks:
+  - {fileID: 1167348659964556846}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 3632
+--- !u!114 &-6454830448944396986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/StreamingAssets/FMOD/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 637785523922393382
+  LoadResult: 0
+  FileSizes:
+  - Name: 
+    Value: 1500
+  Exists: 1
+--- !u!114 &-5681044214049969747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/CoolCat/Cat_Hit
+  m_EditorClassIdentifier: 
+  Path: event:/CoolCat/Cat_Hit
+  guid: e164b2466440e846a9065766e46b9ede
+  Banks:
+  - {fileID: 1167348659964556846}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 10
+  MaxDistance: 50
+  Length: 838
+--- !u!114 &-5419805940034222230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/BGM/Victory
+  m_EditorClassIdentifier: 
+  Path: event:/BGM/Victory
+  guid: 67441b0fa1c3f64082bde578cecbd0bb
+  Banks:
+  - {fileID: 1167348659964556846}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 3211
+--- !u!114 &-4376754784196995437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/BGM/Main
+  m_EditorClassIdentifier: 
+  Path: event:/BGM/Main
+  guid: b0a4e38acd66b94c830deacddda6ca96
+  Banks:
+  - {fileID: 1167348659964556846}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 73000
+--- !u!114 &-3084555150814580891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/CoolCat/Cat_Jump
+  m_EditorClassIdentifier: 
+  Path: event:/CoolCat/Cat_Jump
+  guid: 1beae3dcc26d9549acd5b7f6c8dba926
+  Banks:
+  - {fileID: 1167348659964556846}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 10
+  MaxDistance: 50
+  Length: 300
+--- !u!114 &-2554108390806833661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/CoolCat/Cat_Dash
+  m_EditorClassIdentifier: 
+  Path: event:/CoolCat/Cat_Dash
+  guid: f6e0cd8b8fb69842bfb657439035f2fa
+  Banks:
+  - {fileID: 1167348659964556846}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 10
+  MaxDistance: 50
+  Length: 334
+--- !u!114 &-2504488387831136399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/HotDog/Dog_Hurt
+  m_EditorClassIdentifier: 
+  Path: event:/HotDog/Dog_Hurt
+  guid: 764026b89221a14d94b883e2d301357c
+  Banks:
+  - {fileID: 1167348659964556846}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 10
+  MaxDistance: 50
+  Length: 820
+--- !u!114 &-2072949000257751224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/CoolCat/Cat_Taunt
+  m_EditorClassIdentifier: 
+  Path: event:/CoolCat/Cat_Taunt
+  guid: b494bfc8b78b274b853d2cc749f1758e
+  Banks:
+  - {fileID: 1167348659964556846}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 10
+  MaxDistance: 50
+  Length: 247
+--- !u!114 &-419252285735182714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/HotDog/Dog_Dash
+  m_EditorClassIdentifier: 
+  Path: event:/HotDog/Dog_Dash
+  guid: 27f4223dd8e986418ef6b4cf2c714c8d
+  Banks:
+  - {fileID: 1167348659964556846}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 10
+  MaxDistance: 50
+  Length: 292
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12,10 +286,236 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
-  EditorBanks: []
-  EditorEvents: []
+  EditorBanks:
+  - {fileID: -6454830448944396986}
+  - {fileID: 1167348659964556846}
+  EditorEvents:
+  - {fileID: -3084555150814580891}
+  - {fileID: -419252285735182714}
+  - {fileID: 7996282651520834579}
+  - {fileID: -5419805940034222230}
+  - {fileID: 2427637203361373662}
+  - {fileID: -2504488387831136399}
+  - {fileID: 6222073537936395150}
+  - {fileID: -6502114553303254942}
+  - {fileID: 7734132232913041846}
+  - {fileID: -7832460032369023915}
+  - {fileID: 8103036350877359644}
+  - {fileID: 4808314489959292791}
+  - {fileID: -4376754784196995437}
+  - {fileID: -2072949000257751224}
+  - {fileID: 5900393324878727820}
+  - {fileID: -5681044214049969747}
+  - {fileID: 8649088495096106952}
+  - {fileID: -2554108390806833661}
+  - {fileID: -7286051650239946487}
   EditorParameters: []
-  MasterBanks: []
-  StringsBanks: []
-  stringsBankWriteTime: 0
+  MasterBanks:
+  - {fileID: 1167348659964556846}
+  StringsBanks:
+  - {fileID: -6454830448944396986}
+  stringsBankWriteTime: 637785523922393382
   cacheVersion: 6
+--- !u!114 &1167348659964556846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/StreamingAssets/FMOD/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 637785523892703086
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
+--- !u!114 &2427637203361373662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/SwitchToDog
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/SwitchToDog
+  guid: 6c532c0db7b17649a942f9d3c8705898
+  Banks:
+  - {fileID: 1167348659964556846}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 4315
+--- !u!114 &4808314489959292791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/BGM/Depeat
+  m_EditorClassIdentifier: 
+  Path: event:/BGM/Depeat
+  guid: ae150d1c2e0d4e43b305209560244623
+  Banks:
+  - {fileID: 1167348659964556846}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 4130
+--- !u!114 &5900393324878727820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/HotDog/Dog_Idle
+  m_EditorClassIdentifier: 
+  Path: event:/HotDog/Dog_Idle
+  guid: c57957aff154d444bce44450211fa735
+  Banks:
+  - {fileID: 1167348659964556846}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 10
+  MaxDistance: 50
+  Length: 0
+--- !u!114 &6222073537936395150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/CoolCat/Cat_Move
+  m_EditorClassIdentifier: 
+  Path: event:/CoolCat/Cat_Move
+  guid: 8b7a97a2984ca748b8ac89cff01df52e
+  Banks:
+  - {fileID: 1167348659964556846}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 10
+  MaxDistance: 50
+  Length: 0
+--- !u!114 &7734132232913041846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/HotDog/Dog_Jump
+  m_EditorClassIdentifier: 
+  Path: event:/HotDog/Dog_Jump
+  guid: 9b255ce4cde8db4f9f7318b61c4a00e2
+  Banks:
+  - {fileID: 1167348659964556846}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 10
+  MaxDistance: 50
+  Length: 300
+--- !u!114 &7996282651520834579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/CoolCat/Cat_Attack
+  m_EditorClassIdentifier: 
+  Path: event:/CoolCat/Cat_Attack
+  guid: 5af1b0d8aa1f3241b5b871103a955061
+  Banks:
+  - {fileID: 1167348659964556846}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 10
+  MaxDistance: 50
+  Length: 430
+--- !u!114 &8103036350877359644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/CoolCat/Cat_Hurt
+  m_EditorClassIdentifier: 
+  Path: event:/CoolCat/Cat_Hurt
+  guid: a6aa509576d04e44b2744d35cd3df7cb
+  Banks:
+  - {fileID: 1167348659964556846}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 10
+  MaxDistance: 50
+  Length: 1000
+--- !u!114 &8649088495096106952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/HotDog/Dog_Taunt
+  m_EditorClassIdentifier: 
+  Path: event:/HotDog/Dog_Taunt
+  guid: f1d918f0d6875a40974fc6b9a0a6d171
+  Banks:
+  - {fileID: 1167348659964556846}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 10
+  MaxDistance: 50
+  Length: 0

@@ -13,7 +13,7 @@ public class Player3D : Actor
 
 
     [SerializeField]
-    private Transform Root;
+    public Transform Root;
 
     [SerializeField]
     private List<Collider> MapCollider;
