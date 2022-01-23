@@ -39073,7 +39073,7 @@ PrefabInstance:
     - target: {fileID: 295843342747005455, guid: 2176817ffd3080d459032f984661c97b,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 364575053218695877, guid: 2176817ffd3080d459032f984661c97b,
         type: 3}
@@ -47697,7 +47697,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mLevelStatus: 0
-  SwitchTime: 5
+  SwitchTime: 10
   TimerText: {fileID: 23045324}
   WinnerText: {fileID: 1161509583}
   mLocalPlayer: {fileID: 0}
@@ -47716,7 +47716,6 @@ MonoBehaviour:
   - {fileID: 1841935820}
   - {fileID: 1417472968}
   - {fileID: 1764047892}
-  mPP2D: {fileID: 1976073119}
   mPP3D: {fileID: 1375945443}
 --- !u!1 &988840223
 GameObject:

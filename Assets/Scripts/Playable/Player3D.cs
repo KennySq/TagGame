@@ -429,11 +429,6 @@ public class Player3D : Actor
             Controller();
         }
 
-        if (mActorIndex == 1)
-        {
-            mMesh.transform.LookAt(MainCamera.transform);
-        }
-
         if (CurrentLevel.LocalActor.gameObject == gameObject)
         {
             FMOD.Studio.EventInstance moveSound = mFmodEventInstances["event:/CoolCat/Cat_Move"];

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 // 현재 레벨을 관리하는 클래스
 // 카메라, 2D,3D 상태 관리
@@ -99,7 +100,6 @@ public class Level : MonoBehaviour
     public GameObject[] Elevator2D;
     public GameObject[] Elevator3D;
 
-    public Volume mPP2D;
     public Volume mPP3D;
 
     // 레벨 상태 스위칭 (2D <-> 3D)
@@ -114,12 +114,21 @@ public class Level : MonoBehaviour
             Field2D.gameObject.SetActive(false);
             Field3D.gameObject.SetActive(true);
 
-            mPP3D.weight = 1.0f;
-
-            for (int i = 0; i < 4; i++) 
+            for (int i = 0; i < 4; i++)
             {
                 Elevator2D[i].SetActive(false);
                 Elevator3D[i].SetActive(true);
+            }
+
+            foreach (var c in mPP3D.profile.components)
+            {
+                if(c.name == "FilmGrain(Clone)")
+                {
+                    UnityEngine.Rendering.Universal.FilmGrain fl = (FilmGrain)c;
+
+                    fl.active = false;
+                }
+
             }
 
             (LocalActor as Player3D).Root = Field3D;
@@ -134,8 +143,17 @@ public class Level : MonoBehaviour
 
             Field2D.gameObject.SetActive(true);
             Field3D.gameObject.SetActive(false);
+            
+            foreach (var c in mPP3D.profile.components)
+            {
+                if (c.name == "FilmGrain(Clone)")
+                {
+                    UnityEngine.Rendering.Universal.FilmGrain fl = (FilmGrain)c;
 
-            mPP3D.weight = 0.0f;
+                    fl.active = false;
+                }
+
+            }
 
             for (int i = 0; i < 4; i++)
             {
