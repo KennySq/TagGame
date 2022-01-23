@@ -36,7 +36,7 @@ public class PlatformMovement : MonoBehaviour
 
     private IEnumerator Start()
     {
-        var waitForSendRate = new WaitForSecondsRealtime(1f / PhotonNetwork.SendRate);
+        var waitForSendRate = new WaitForSecondsRealtime(2f);
 
         while (isActiveAndEnabled)
         {
