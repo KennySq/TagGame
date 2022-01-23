@@ -54,7 +54,7 @@ public class Player3D : Actor
         {
             if (mActorIndex == 1 && mbMoving == true)
             {
-                mFmodEventInstances["event:/CoolCat/Cat_Move"].start();
+                mFmodEventInstances["event:/CoolCat/Cat_Move"].stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
             }
 
             mbMoving = false;
@@ -64,7 +64,7 @@ public class Player3D : Actor
         {
             if (mActorIndex == 1 && mbMoving == false)
             {
-                mFmodEventInstances["event:/CoolCat/Cat_Move"].stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+                mFmodEventInstances["event:/CoolCat/Cat_Move"].start();
             }
 
             mbMoving = true;
@@ -198,14 +198,6 @@ public class Player3D : Actor
         mFmodEvents.Add("event:/HotDog/Dog_Jump");
         mFmodEvents.Add("event:/HotDog/Dog_Taunt");
 
-        foreach (var e in mFmodEvents)
-        {
-            FMOD.Studio.EventInstance inst = FMODUnity.RuntimeManager.CreateInstance(e);
-            mFmodEventInstances.Add(e, inst);
-
-            inst.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(this.transform));
-        }
-
         wrapper = new CoroutineWrapper(this);
 
         // Rigidbody, Collision 초기화.
@@ -226,6 +218,26 @@ public class Player3D : Actor
 
         TagGame.Photon.PhotonManager.Instance.OnTagReceive += Instance_OnTagReceive;
     }
+
+    private void Start()
+    {
+        foreach (var e in mFmodEvents)
+        {
+            FMOD.Studio.EventInstance inst = FMODUnity.RuntimeManager.CreateInstance(e);
+            mFmodEventInstances.Add(e, inst);
+            Debug.Log(CurrentLevel.RemotePlayer);
+
+            if (CurrentLevel.LocalActor.gameObject == gameObject)
+            {
+                inst.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(this.transform));
+            }
+            else
+            {
+                inst.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(CurrentLevel.RemotePlayer.transform));
+            }
+        }
+    }
+
 
     private void Instance_OnTagReceive(TagGame.Photon.TagPacket obj)
     {

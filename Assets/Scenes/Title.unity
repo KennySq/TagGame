@@ -340,7 +340,7 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  nextScene: GameScene Resized
+  nextScene: GameScene
 --- !u!1 &375160205
 GameObject:
   m_ObjectHideFlags: 0
