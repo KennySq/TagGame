@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour
         }
 
         mLevel.RemotePlayer = mRemotePlayer;
+        mRemotePlayer.GetComponentInChildren<FMODUnity.StudioListener>().enabled = false;
 
     }
 
