@@ -153,7 +153,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 119
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -262,7 +262,17 @@ MonoBehaviour:
   mActorIndex: 1
   mSendPosition: {fileID: 3573106194328090814}
   mReceivePosition: {fileID: 3840877111599840913}
+  Root: {fileID: 0}
+  MapCollider: []
+  platforms: {fileID: 0}
   animator: {fileID: 817590373}
+  JumpCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  GravityScalar: -2.45
 --- !u!1 &5715098522851287692
 GameObject:
   m_ObjectHideFlags: 0

@@ -159,7 +159,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 119
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -270,6 +270,7 @@ MonoBehaviour:
   mReceivePosition: {fileID: 8775301881922804204}
   Root: {fileID: 0}
   MapCollider: []
+  platforms: {fileID: 0}
   animator: {fileID: 0}
   JumpCurve:
     serializedVersion: 2
