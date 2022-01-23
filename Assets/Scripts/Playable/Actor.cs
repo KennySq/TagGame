@@ -42,6 +42,12 @@ public abstract class Actor : MonoBehaviour
 
     [SerializeField]
     protected int mActorIndex = -1;
+    public int ActorIndex
+    {
+        get { return mActorIndex; }
+    }
+
+    protected bool mbMoving;
 
     [Header("Network")]
 
@@ -65,6 +71,7 @@ public abstract class Actor : MonoBehaviour
         }
         else // otherWise
         {
+            ReceivePosition.Initialize(this as Player3D);
             ReceivePosition.enabled = true;
         }
     }

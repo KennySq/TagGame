@@ -9,6 +9,9 @@ public class TestReceivePosition : MonoBehaviour
     [SerializeField]
     private Rigidbody rigid;
 
+
+    private Player3D player;
+
     private Vector3 TargetPosition;
     private Vector3 PredictionPosition;
 
@@ -30,6 +33,11 @@ public class TestReceivePosition : MonoBehaviour
 
     public float updateRate = 0;
 
+    public void Initialize(in Player3D player)
+    {
+        this.player = player;
+    }
+
     private void OnEnable()
     {
         TagGame.Photon.PhotonManager.OnInitialized += PhotonManager_OnInitialized;
@@ -38,6 +46,12 @@ public class TestReceivePosition : MonoBehaviour
     private void PhotonManager_OnInitialized(TagGame.Photon.PhotonManager photonManager)
     {
         photonManager.OnTrackedPoseMessageReceive += PhotonManager_OnTrackedPoseMessageReceive;
+        photonManager.OnAnimationMessageReceive += PhotonManager_OnAnimationMessageReceive;
+    }
+
+    private void PhotonManager_OnAnimationMessageReceive(TagGame.Photon.AnimationPacket obj)
+    {
+        player.InvokeAnimationTrigger(obj.index);
     }
 
     private void PhotonManager_OnTrackedPoseMessageReceive(TagGame.Photon.TrackedPosePacket packet)
@@ -62,8 +76,10 @@ public class TestReceivePosition : MonoBehaviour
         var lerpPosition = Vector3.LerpUnclamped(TargetPosition, PredictionPosition, ExtrapolationFactor);
         //var lerpRotation = Quaternion.SlerpUnclamped(TargetRotation, PredictionRotation, ExtrapolationFactor);
 
-        rigid.position= Vector3.Lerp(rigid.position, lerpPosition, InterpolationFactor);
-        rigid.rotation= Quaternion.Slerp(rigid.rotation, PredictionRotation, InterpolationFactor);
+        var nextPosition = Vector3.Lerp(rigid.position, lerpPosition, InterpolationFactor);
+
+        rigid.position = nextPosition;
+        rigid.rotation = Quaternion.Slerp(rigid.rotation, PredictionRotation, InterpolationFactor);
     }
 
     public void UpdateTarget(in int timeStamp, in Vector3 nextPosition, in Quaternion nextRotation, in Vector3 velocity, in Vector3 acceleration, in bool useSnap)
@@ -95,10 +111,12 @@ public class TestReceivePosition : MonoBehaviour
         UpdateTime = 0f;
         LastTimeStamp = timeStamp;
 
-        //continuous received
-        lerpFactor = Mathf.Lerp(lerpFactor, (velocity + (acceleration * (transportDiff + PacketSendInterval))).magnitude, 0.4f);
+        rigid.velocity = velocity;
 
-        PredictionPosition = nextPosition + (velocity + (acceleration * (transportDiff + PacketSendInterval))) * (transportDiff + PacketSendInterval);
+        //continuous received
+        lerpFactor = Mathf.Lerp(lerpFactor, (velocity /*+ (acceleration * (transportDiff + PacketSendInterval))*/).magnitude, 0.4f);
+
+        PredictionPosition = nextPosition + (velocity /*+ (acceleration * (transportDiff + PacketSendInterval))*/) * (transportDiff + PacketSendInterval);
         PredictionRotation = nextRotation * (nextRotation * Quaternion.Inverse(TargetRotation));
 
         TargetPosition = nextPosition;
@@ -110,6 +128,7 @@ public class TestReceivePosition : MonoBehaviour
     {
         if (TagGame.Photon.PhotonManager.TryGetInstance(out var instance))
         {
+            instance.OnAnimationMessageReceive -= PhotonManager_OnAnimationMessageReceive;
             instance.OnTrackedPoseMessageReceive -= PhotonManager_OnTrackedPoseMessageReceive;
         }
         TagGame.Photon.PhotonManager.OnInitialized -= PhotonManager_OnInitialized;

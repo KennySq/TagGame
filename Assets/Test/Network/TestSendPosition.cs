@@ -62,7 +62,7 @@ public class TestSendPosition : MonoBehaviour
         {
             pos = rigid.position,
             velocity = rigid.velocity,
-            acceleration = Acceleraction,
+            //acceleration = Acceleraction,
 
             rot = transform.rotation,
             useSnap = isSnap ? 1 : 0
