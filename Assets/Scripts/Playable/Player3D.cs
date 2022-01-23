@@ -382,6 +382,8 @@ public class Player3D : Actor
         {
             Rigidbody3D.velocity += Gravity3D * Time.deltaTime;
         }
+
+        Rigidbody3D.transform.position = new Vector3(Rigidbody3D.transform.position.x, 0.3f, Rigidbody3D.transform.position.z);
     }
 
     private bool CheckGround()
