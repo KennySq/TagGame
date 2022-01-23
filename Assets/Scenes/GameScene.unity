@@ -1703,6 +1703,12 @@ Transform:
   m_Father: {fileID: 2038783386}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &839431430 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1881446966, guid: 8f0e51ac2a2bad642a6527c6ad93c033,
+    type: 3}
+  m_PrefabInstance: {fileID: 1684688618}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &855563719
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6168,6 +6174,10 @@ PrefabInstance:
       propertyPath: Root
       value: 
       objectReference: {fileID: 2061592633}
+    - target: {fileID: 1429792535, guid: 8f0e51ac2a2bad642a6527c6ad93c033, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 839431430}
     - target: {fileID: 1429792535, guid: 8f0e51ac2a2bad642a6527c6ad93c033, type: 3}
       propertyPath: JumpPower
       value: 10

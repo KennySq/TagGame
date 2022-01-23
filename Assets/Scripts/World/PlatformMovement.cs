@@ -26,9 +26,11 @@ public class PlatformMovement : MonoBehaviour
 
     private void Instance_OnPlatformPacketReceive(PlatformPacket obj)
     {
+        var transportDiff = (PhotonNetwork.ServerTimestamp - obj.time_stamp) * 0.001f;
+
         for (int i = 0; i < Platforms.Count; ++i)
         {
-            Platforms[i].position = new Vector3(0, 0, obj.heights[i]);
+            Platforms[i].position = new Vector3(0, 0, obj.heights[i] + (upwardSpeed * Time.fixedDeltaTime * transportDiff));
         }
     }
 
